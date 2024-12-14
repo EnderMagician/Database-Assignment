@@ -23,7 +23,7 @@ CREATE TABLE Customers (
     Birthday DATE NOT NULL,
     Gender ENUM('Male', 'Female', 'Other') NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
-    PhoneNumber VARCHAR(20) UNIQUE NOT NULL,
+    PhoneNumber VARCHAR(10) UNIQUE NOT NULL,
     Address VARCHAR(255) NOT NULL
 );
 
@@ -32,9 +32,9 @@ CREATE TABLE Employees (
     EmployeeName VARCHAR(50) NOT NULL,
     Birthday DATE NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
-    PhoneNumber VARCHAR(20) UNIQUE NOT NULL,
+    PhoneNumber VARCHAR(10) UNIQUE NOT NULL,
     Gender ENUM('Male', 'Female', 'Other') NOT NULL,
-    Position ENUM('Driver', 'Tour Guide') NOT NULL,
+    Position ENUM('Driver', 'TourGuide') NOT NULL,
     StartedDate DATE NOT NULL,
     Salary DECIMAL(10, 2) NOT NULL
 );
@@ -88,7 +88,7 @@ CREATE TABLE Bookings (
     AssignedHotel INT NOT NULL,
     AssignedVehicle VARCHAR(9) NOT NULL,
     PickupAddress VARCHAR(100) NOT NULL,
-    Status ENUM('Paid', 'Not Paid', 'Canceled', 'Completed'),
+    Status ENUM('Paid', 'NotPaid', 'Canceled', 'Completed'),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (TourID) REFERENCES Tours(TourID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (AssignedHotel) REFERENCES Hotels(HotelID) ON DELETE CASCADE ON UPDATE CASCADE,
