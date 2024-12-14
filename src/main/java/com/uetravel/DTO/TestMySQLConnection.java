@@ -1,4 +1,4 @@
-package com.uetravel.models;
+package com.uetravel.DTO;
 
 import java.sql.Connection;
 import java.sql.SQLException;

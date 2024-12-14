@@ -1,11 +1,11 @@
-package com.uetravel.models;
+package com.uetravel.DTO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQLConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/database";
+    private static final String URL = "jdbc:mysql://localhost:3306/traveltours";
     private static final String USER = "root"; // Thay bằng user của bạn
     private static final String PASSWORD = ""; // Thay bằng password của bạn
 
