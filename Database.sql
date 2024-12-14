@@ -45,7 +45,7 @@ CREATE TABLE Payments (
     Amount DECIMAL(10, 2) NOT NULL,
     PaymentMethod VARCHAR(15) NOT NULL,
     CustomerID INT,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Destinations (
@@ -67,7 +67,7 @@ CREATE TABLE Vehicles (
     RegistrationNumber VARCHAR(9) PRIMARY KEY,
     Type VARCHAR(50),
     PurchasedDate DATE NOT NULL,
-    FOREIGN KEY (Type) REFERENCES VehicleTypes(Type)
+    FOREIGN KEY (Type) REFERENCES VehicleTypes(Type) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Hotels (
@@ -89,10 +89,10 @@ CREATE TABLE Bookings (
     AssignedVehicle VARCHAR(9) NOT NULL,
     PickupAddress VARCHAR(100) NOT NULL,
     Status ENUM('Paid', 'Not Paid', 'Canceled', 'Completed'),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    FOREIGN KEY (TourID) REFERENCES Tours(TourID),
-    FOREIGN KEY (AssignedHotel) REFERENCES Hotels(HotelID),
-    FOREIGN KEY (AssignedVehicle) REFERENCES Vehicles(RegistrationNumber)
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (TourID) REFERENCES Tours(TourID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (AssignedHotel) REFERENCES Hotels(HotelID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (AssignedVehicle) REFERENCES Vehicles(RegistrationNumber) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Assignings (
@@ -104,11 +104,11 @@ CREATE TABLE Assignings (
     EndTime DATETIME NOT NULL,  
     StartDestination INT NOT NULL,
     EndDestination INT NOT NULL,
-    FOREIGN KEY (DriverID) REFERENCES Employees(EmployeeID),
-    FOREIGN KEY (TourGuideID) REFERENCES Employees(EmployeeID),
-    FOREIGN KEY (Vehicle) REFERENCES Vehicles(RegistrationNumber),
-    FOREIGN KEY (StartDestination) REFERENCES Destinations(DestinationID),
-    FOREIGN KEY (EndDestination) REFERENCES Destinations(DestinationID)
+    FOREIGN KEY (DriverID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (TourGuideID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Vehicle) REFERENCES Vehicles(RegistrationNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (StartDestination) REFERENCES Destinations(DestinationID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (EndDestination) REFERENCES Destinations(DestinationID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE TourDestinations (
@@ -117,6 +117,6 @@ CREATE TABLE TourDestinations (
     ArrivalTime DATETIME NOT NULL,
     DepartureTime DATETIME NOT NULL,
     PRIMARY KEY (TourID, DestinationID),
-    FOREIGN KEY (TourID) REFERENCES Tours(TourID),
-    FOREIGN KEY (DestinationID) REFERENCES Destinations(DestinationID)
+    FOREIGN KEY (TourID) REFERENCES Tours(TourID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (DestinationID) REFERENCES Destinations(DestinationID) ON DELETE CASCADE ON UPDATE CASCADE
 );
