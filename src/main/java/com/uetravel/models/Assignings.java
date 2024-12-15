@@ -25,6 +25,10 @@ public class Assignings {
     private Employees tourGuide;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "TourID", nullable = false)
+    private Tours tour;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "Vehicle", nullable = false)
     private Vehicles vehicle;
 
