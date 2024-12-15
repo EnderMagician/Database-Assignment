@@ -10,7 +10,6 @@ import com.uetravel.repositories.ToursRepo;
 
 @Service
 public class ToursServices {
-
     @Autowired
     private ToursRepo toursRepo;
 
@@ -18,15 +17,22 @@ public class ToursServices {
         return toursRepo.findAll();
     }
 
-    public Iterable<Tours> getTourByPriceRange(Double minPrice, Double maxPrice) {
+    public List<Tours> getTourByPriceRange(Double minPrice, Double maxPrice) {
         return toursRepo.findByPriceRange(minPrice, maxPrice);
     }
 
-    public Iterable<Tours> getTourByName(String tourName) {
+    public List<Tours> getTourByName(String tourName) {
         return toursRepo.findByName(tourName);
     }
 
-    public Iterable<Tours> getTourByDestination(String destinationName) {
+    public List<Tours> getTourByDestination(String destinationName) {
         return toursRepo.findByDestination(destinationName);
+    }
+
+    public void deleteTour(Integer tourId) {
+        if (!toursRepo.existsById(tourId)) {
+            throw new IllegalArgumentException("Tour not found with ID: " + tourId);
+        }
+        toursRepo.deleteById(tourId);
     }
 }

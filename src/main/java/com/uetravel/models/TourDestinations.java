@@ -1,11 +1,20 @@
 package com.uetravel.models;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TourDestinations")
@@ -34,6 +43,7 @@ public class TourDestinations {
     @Embeddable
     @Getter
     @Setter
+    @RequiredArgsConstructor
     public static class TourDestinationId implements Serializable {
         private Integer tourId;
         private Integer destinationId;
