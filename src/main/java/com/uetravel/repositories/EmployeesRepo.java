@@ -13,6 +13,7 @@ import com.uetravel.models.Employees;
 
 @Repository
 public interface EmployeesRepo extends JpaRepository<Employees, Integer> {
+
     @Query("SELECT e FROM Employees e WHERE e.employeeName LIKE %:name%")
     List<Employees> findByName(@Param("name") String name);
 
@@ -26,8 +27,8 @@ public interface EmployeesRepo extends JpaRepository<Employees, Integer> {
     List<Employees> findBySalaryRange(@Param("minSalary") BigDecimal minSalary, @Param("maxSalary") BigDecimal maxSalary);
 
     @Query("SELECT e FROM Employees e " +
-    "JOIN e.assignings a " +
-    "JOIN a.tour t " +
-    "WHERE t.tourName = :tourName")
+           "JOIN e.assignings a " + 
+           "JOIN a.tour t " +
+           "WHERE t.tourName = :tourName")
     List<Employees> findByTourName(@Param("tourName") String tourName);
 }

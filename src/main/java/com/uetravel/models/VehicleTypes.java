@@ -7,14 +7,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "VehicleTypes")
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class VehicleTypes {
     @Id
     @Column(name = "Type", nullable = false, length = 50)

@@ -14,14 +14,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "Bookings")
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Bookings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

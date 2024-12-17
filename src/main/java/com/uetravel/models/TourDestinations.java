@@ -14,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -44,7 +43,6 @@ public class TourDestinations {
     @Embeddable
     @Getter
     @Setter
-    @RequiredArgsConstructor
     public static class TourDestinationId implements Serializable {
         private Integer tourId;
         private Integer destinationId;

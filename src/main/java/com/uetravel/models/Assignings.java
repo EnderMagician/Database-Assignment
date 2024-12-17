@@ -12,14 +12,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "Assignings")
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Assignings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
