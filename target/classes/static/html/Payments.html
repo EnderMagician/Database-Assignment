@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Payments</title>
+</head>
+<body style="padding-top: 170px"> 
+
+<div id="main-navbar"></div> 
+
+<div th:if="${message}">
+  <p th:text="${message}"></p>
+</div>
+
+<div th:if="${not #lists.isEmpty(payments)}">  
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Customer Name</th> 
+        <th>Payment Date</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="payment : ${payments}">  
+        <td th:text="${payment.paymentId}"></td>
+        <td th:text="${payment.customer.customerName}"></td> 
+        <td th:text="${payment.paymentDate}"></td>
+        <td th:text="${payment.amount}"></td>
+        <td th:text="${payment.paymentMethod}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:if="${error}">
+  <p th:text="${error}"></p>
+</div>
+
+<script src="../javascript/AdminNavbar.js"></script> 
+
+</body>
+</html>

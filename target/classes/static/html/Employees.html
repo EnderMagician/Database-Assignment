@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Employees</title>
+</head>
+<body style="padding-top: 170px"> 
+
+<div id="main-navbar"></div> 
+
+<div th:if="${message}">
+  <p th:text="${message}"></p>
+</div>
+
+<div th:if="${not #lists.isEmpty(employees)}"> 
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Position</th>
+        <th>Started Date</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="employee : ${employees}"> 
+        <td th:text="${employee.employeeId}"></td>
+        <td th:text="${employee.employeeName}"></td>
+        <td th:text="${employee.birthday}"></td>
+        <td th:text="${employee.gender}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.phoneNumber}"></td>
+        <td th:text="${employee.position}"></td>
+        <td th:text="${employee.startedDate}"></td>
+        <td th:text="${employee.salary}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:if="${error}">
+  <p th:text="${error}"></p>
+</div>
+
+<script src="../javascript/AdminNavbar.js"></script> 
+
+</body>
+</html>
