@@ -17,7 +17,6 @@ import com.uetravel.services.BookingsServices;
 @RestController
 @RequestMapping("/bookings")
 public class BookingsController {
-
     @Autowired
     private BookingsServices bookingsServices;
 

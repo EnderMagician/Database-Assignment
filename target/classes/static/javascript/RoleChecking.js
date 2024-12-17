@@ -19,16 +19,25 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(html => {
                 document.getElementById('main-navbar').innerHTML = html;
 
-                const currentPage = window.location.pathname.split('/').pop();
-                const links = document.querySelectorAll('#main-navbar a');
-                links.forEach(link => {
-                    if (link.getAttribute('href') === currentPage) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
+                // Ensure active link logic runs *after* navbar is fully loaded
+                setTimeout(() => {
+                    highlightActiveLink();
+                }, 0);
             })
             .catch(err => console.error('Failed to load navbar:', err));
+    }
+
+    function highlightActiveLink() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const links = document.querySelectorAll('#main-navbar a');
+
+        links.forEach(link => {
+            const linkHref = link.getAttribute('href').split('/').pop();
+            if (linkHref === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
     }
 });

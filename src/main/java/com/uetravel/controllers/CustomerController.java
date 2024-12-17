@@ -16,7 +16,6 @@ import com.uetravel.services.CustomerServices;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
-
     @Autowired
     private CustomerServices customerServices;
 
