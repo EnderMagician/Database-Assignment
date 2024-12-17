@@ -118,17 +118,17 @@ public class AssigningsServices {
     }
 
     public Assignings updateAssigningVehicle(Integer assigningId, String registrationNumber) {
-    Assignings assigning = assigningsRepo.findById(assigningId)
+        Assignings assigning = assigningsRepo.findById(assigningId)
             .orElseThrow(() -> new IllegalArgumentException("Assigning not found with ID: " + assigningId));
 
-    Vehicles vehicle = vehiclesServices.getVehicleByRegistrationNumber(registrationNumber);
-    if (vehicle == null) {
-        throw new IllegalArgumentException("Vehicle not found with registration number: " + registrationNumber);
-    }
+        Vehicles vehicle = vehiclesServices.getVehicleByRegistrationNumber(registrationNumber);
+        if (vehicle == null) {
+            throw new IllegalArgumentException("Vehicle not found with registration number: " + registrationNumber);
+        }
 
-    assigning.setVehicle(vehicle);
-    return assigningsRepo.save(assigning);
-}
+        assigning.setVehicle(vehicle);
+        return assigningsRepo.save(assigning);
+    }
 
     public Assignings updateAssigningTour(Integer assigningId, String tourName) {
         Assignings assigning = assigningsRepo.findById(assigningId)

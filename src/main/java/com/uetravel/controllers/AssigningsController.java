@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Assignings;
 import com.uetravel.services.AssigningsServices;
@@ -23,153 +23,174 @@ public class AssigningsController {
     private AssigningsServices assigningsServices;
 
     @GetMapping
-    public List<Assignings> getAllAssignings() {
-        return assigningsServices.getAllAssignings();
+    public ModelAndView getAllAssignings() {
+        ModelAndView modelAndView = new ModelAndView("assignings");
+        List<Assignings> assignings = assigningsServices.getAllAssignings();
+        modelAndView.addObject("assignings", assignings);
+        return modelAndView;
     }
 
     @GetMapping("/employeeName/{employeeName}")
-    public ResponseEntity<List<Assignings>> getAssigningsByEmployeeName(@PathVariable String employeeName) {
+    public ModelAndView getAssigningsByEmployeeName(@PathVariable String employeeName) {
+        ModelAndView modelAndView = new ModelAndView("assignings");
         List<Assignings> assignings = assigningsServices.getAssigningsByEmployeeName(employeeName);
-        return assignings.isEmpty() ? 
-                ResponseEntity.noContent().build() : 
-                ResponseEntity.ok(assignings);
+        modelAndView.addObject("assignings", assignings);
+        return modelAndView;
     }
 
     @GetMapping("/employeeId/{employeeId}")
-    public ResponseEntity<List<Assignings>> getAssigningsByEmployeeId(@PathVariable Integer employeeId) {
+    public ModelAndView getAssigningsByEmployeeId(@PathVariable Integer employeeId) {
+        ModelAndView modelAndView = new ModelAndView("assignings");
         List<Assignings> assignings = assigningsServices.getAssigningsByEmployeeId(employeeId);
-        return assignings.isEmpty() ? 
-                ResponseEntity.noContent().build() : 
-                ResponseEntity.ok(assignings);
+        modelAndView.addObject("assignings", assignings);
+        return modelAndView;
     }
 
     @GetMapping("/vehicle/{registrationNumber}")
-    public ResponseEntity<List<Assignings>> getAssigningsByVehicleRegistrationNumber(@PathVariable String registrationNumber) {
+    public ModelAndView getAssigningsByVehicleRegistrationNumber(@PathVariable String registrationNumber) {
+        ModelAndView modelAndView = new ModelAndView("assignings");
         List<Assignings> assignings = assigningsServices.getAssigningsByVehicleRegistrationNumber(registrationNumber);
-        return assignings.isEmpty() ? 
-                ResponseEntity.noContent().build() : 
-                ResponseEntity.ok(assignings);
+        modelAndView.addObject("assignings", assignings);
+        return modelAndView;
     }
 
     @GetMapping("/tour/{tourName}")
-    public ResponseEntity<List<Assignings>> getAssigningsByTourName(@PathVariable String tourName) {
+    public ModelAndView getAssigningsByTourName(@PathVariable String tourName) {
+        ModelAndView modelAndView = new ModelAndView("assignings");
         List<Assignings> assignings = assigningsServices.getAssigningsByTourName(tourName);
-        return assignings.isEmpty() ? 
-                ResponseEntity.noContent().build() : 
-                ResponseEntity.ok(assignings);
+        modelAndView.addObject("assignings", assignings);
+        return modelAndView;
     }
 
     @DeleteMapping("/{assigningId}")
-    public ResponseEntity<Void> deleteAssigning(@PathVariable Integer assigningId) {
+    public ModelAndView deleteAssigning(@PathVariable Integer assigningId) {
+        ModelAndView modelAndView = new ModelAndView("assignings"); 
         try {
-            assigningsServices.deleteAssigning(assigningId); 
-            return ResponseEntity.noContent().build(); 
-        } catch (IllegalArgumentException e) { 
-            return ResponseEntity.notFound().build(); 
+            assigningsServices.deleteAssigning(assigningId);
+            modelAndView.addObject("message", "Assigning deleted successfully!"); 
+        } catch (IllegalArgumentException e) {
+            modelAndView.addObject("error", "Assigning not found"); 
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/driver")
-    public ResponseEntity<Assignings> updateAssigningDriver(
-        @PathVariable Integer assigningId,
-        @RequestParam("driverName") String driverName) {
+    public ModelAndView updateAssigningDriver(
+            @PathVariable Integer assigningId,
+            @RequestParam("driverName") String driverName) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningDriver(assigningId, driverName);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning)); 
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning or Driver not found"); 
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/tourGuide")
-    public ResponseEntity<Assignings> updateAssigningTourGuide(
-        @PathVariable Integer assigningId,
-        @RequestParam("tourGuideName") String tourGuideName) {
+    public ModelAndView updateAssigningTourGuide(
+            @PathVariable Integer assigningId,
+            @RequestParam("tourGuideName") String tourGuideName) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningTourGuide(assigningId, tourGuideName);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning or Tour Guide not found");
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/startTime")
-    public ResponseEntity<Assignings> updateAssigningStartTime(
-        @PathVariable Integer assigningId,
-        @RequestParam("startTime") Timestamp startTime) {
+    public ModelAndView updateAssigningStartTime(
+            @PathVariable Integer assigningId,
+            @RequestParam("startTime") Timestamp startTime) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningStartTime(assigningId, startTime);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning not found");
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/endTime")
-    public ResponseEntity<Assignings> updateAssigningEndTime(
-        @PathVariable Integer assigningId,
-        @RequestParam("endTime") Timestamp endTime) {
+    public ModelAndView updateAssigningEndTime(
+            @PathVariable Integer assigningId,
+            @RequestParam("endTime") Timestamp endTime) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningEndTime(assigningId, endTime);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning not found");
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/startDestination")
-    public ResponseEntity<Assignings> updateAssigningStartDestination(
-        @PathVariable Integer assigningId,
-        @RequestParam("startDestinationName") String startDestinationName) {
+    public ModelAndView updateAssigningStartDestination(
+            @PathVariable Integer assigningId,
+            @RequestParam("startDestinationName") String startDestinationName) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningStartDestination(assigningId, startDestinationName);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning or Start Destination not found");
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/endDestination")
-    public ResponseEntity<Assignings> updateAssigningEndDestination(
-        @PathVariable Integer assigningId,
-        @RequestParam("endDestinationName") String endDestinationName) {
+    public ModelAndView updateAssigningEndDestination(
+            @PathVariable Integer assigningId,
+            @RequestParam("endDestinationName") String endDestinationName) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningEndDestination(assigningId, endDestinationName);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning or End Destination not found");
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/vehicle")
-    public ResponseEntity<Assignings> updateAssigningVehicle(
-        @PathVariable Integer assigningId,
-        @RequestParam("registrationNumber") String registrationNumber) { 
+    public ModelAndView updateAssigningVehicle(
+            @PathVariable Integer assigningId,
+            @RequestParam("registrationNumber") String registrationNumber) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningVehicle(assigningId, registrationNumber);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning or Vehicle not found");
         }
+        return modelAndView;
     }
 
     @PatchMapping("/{assigningId}/tour")
-    public ResponseEntity<Assignings> updateAssigningTour(
-        @PathVariable Integer assigningId,
-        @RequestParam("tourName") String tourName) { 
+    public ModelAndView updateAssigningTour(
+            @PathVariable Integer assigningId,
+            @RequestParam("tourName") String tourName) {
 
+        ModelAndView modelAndView = new ModelAndView("assignings");
         try {
             Assignings updatedAssigning = assigningsServices.updateAssigningTour(assigningId, tourName);
-            return ResponseEntity.ok(updatedAssigning);
+            modelAndView.addObject("assignings", List.of(updatedAssigning));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Assigning or Tour not found");
         }
+        return modelAndView;
     }
 }

@@ -3,13 +3,13 @@ package com.uetravel.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Tours;
 import com.uetravel.services.ToursServices;
@@ -22,43 +22,48 @@ public class ToursController {
     private ToursServices toursServices;
 
     @GetMapping
-    public List<Tours> getAllTours() {
-        return toursServices.getAllTours();
+    public ModelAndView getAllTours() {
+        ModelAndView modelAndView = new ModelAndView("tours"); // View name: "tours"
+        List<Tours> tours = toursServices.getAllTours();
+        modelAndView.addObject("tours", tours); // Attribute name: "tours"
+        return modelAndView;
     }
 
     @GetMapping("/priceRange")
-    public ResponseEntity<List<Tours>> getTourByPriceRange(
+    public ModelAndView getTourByPriceRange(
             @RequestParam("minPrice") Double minPrice,
             @RequestParam("maxPrice") Double maxPrice) {
+        ModelAndView modelAndView = new ModelAndView("tours");
         List<Tours> tours = toursServices.getTourByPriceRange(minPrice, maxPrice);
-        return tours.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(tours);
+        modelAndView.addObject("tours", tours);
+        return modelAndView;
     }
 
     @GetMapping("/name/{tourName}")
-    public ResponseEntity<List<Tours>> getTourByName(@PathVariable String tourName) {
+    public ModelAndView getTourByName(@PathVariable String tourName) {
+        ModelAndView modelAndView = new ModelAndView("tours");
         List<Tours> tours = toursServices.getTourByName(tourName);
-        return tours.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(tours);
+        modelAndView.addObject("tours", tours);
+        return modelAndView;
     }
 
     @GetMapping("/destination/{destinationName}")
-    public ResponseEntity<List<Tours>> getTourByDestination(@PathVariable String destinationName) {
+    public ModelAndView getTourByDestination(@PathVariable String destinationName) {
+        ModelAndView modelAndView = new ModelAndView("tours");
         List<Tours> tours = toursServices.getTourByDestination(destinationName);
-        return tours.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(tours);
+        modelAndView.addObject("tours", tours);
+        return modelAndView;
     }
 
     @DeleteMapping("/{tourId}")
-    public ResponseEntity<Void> deleteTour(@PathVariable Integer tourId) {
+    public ModelAndView deleteTour(@PathVariable Integer tourId) {
+        ModelAndView modelAndView = new ModelAndView("tours");
         try {
             toursServices.deleteTour(tourId);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Tour deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Tour not found");
         }
+        return modelAndView;
     }
 }

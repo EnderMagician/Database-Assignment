@@ -5,13 +5,13 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Employees;
 import com.uetravel.services.EmployeesServices;
@@ -24,67 +24,72 @@ public class EmployeesController {
     private EmployeesServices employeesServices;
 
     @GetMapping
-    public List<Employees> getAllEmployees() {
-        return employeesServices.getAllEmployees();
+    public ModelAndView getAllEmployees() {
+        ModelAndView modelAndView = new ModelAndView("employees"); // View name: "employees"
+        List<Employees> employees = employeesServices.getAllEmployees();
+        modelAndView.addObject("employees", employees); // Attribute name: "employees"
+        return modelAndView;
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<Employees>> getEmployeeByName(@PathVariable String name) {
+    public ModelAndView getEmployeeByName(@PathVariable String name) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         List<Employees> employees = employeesServices.getEmployeeByName(name);
-        return employees.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(employees);
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
     }
 
     @GetMapping("/startedDate/{startedDate}")
-    public ResponseEntity<List<Employees>> getEmployeeByStartedDate(@PathVariable Date startedDate) {
+    public ModelAndView getEmployeeByStartedDate(@PathVariable Date startedDate) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         List<Employees> employees = employeesServices.getEmployeeByStartedDate(startedDate);
-        return employees.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(employees);
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
     }
 
     @GetMapping("/gender/{gender}")
-    public ResponseEntity<List<Employees>> getEmployeeByGender(@PathVariable Employees.Gender gender) {
+    public ModelAndView getEmployeeByGender(@PathVariable Employees.Gender gender) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         List<Employees> employees = employeesServices.getEmployeeByGender(gender);
-        return employees.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(employees);
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
     }
 
     @GetMapping("/position/{position}")
-    public ResponseEntity<List<Employees>> getEmployeeByPosition(@PathVariable Employees.Position position) {
+    public ModelAndView getEmployeeByPosition(@PathVariable Employees.Position position) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         List<Employees> employees = employeesServices.getEmployeeByPosition(position);
-        return employees.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(employees);
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
     }
 
     @GetMapping("/salaryRange")
-    public ResponseEntity<List<Employees>> getEmployeeBySalaryRange(
+    public ModelAndView getEmployeeBySalaryRange(
             @RequestParam("minSalary") BigDecimal minSalary,
             @RequestParam("maxSalary") BigDecimal maxSalary) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         List<Employees> employees = employeesServices.getEmployeeBySalaryRange(minSalary, maxSalary);
-        return employees.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(employees);
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
     }
 
     @GetMapping("/tourName/{tourName}")
-    public ResponseEntity<List<Employees>> getEmployeeByTourName(@PathVariable String tourName) {
+    public ModelAndView getEmployeeByTourName(@PathVariable String tourName) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         List<Employees> employees = employeesServices.getEmployeeByTourName(tourName);
-        return employees.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(employees);
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
     }
 
     @DeleteMapping("/{employeeId}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Integer employeeId) {
+    public ModelAndView deleteEmployee(@PathVariable Integer employeeId) {
+        ModelAndView modelAndView = new ModelAndView("employees");
         try {
             employeesServices.deleteEmployee(employeeId);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Employee deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Employee not found");
         }
+        return modelAndView;
     }
 }

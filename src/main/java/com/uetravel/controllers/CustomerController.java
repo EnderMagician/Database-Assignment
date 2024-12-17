@@ -3,12 +3,12 @@ package com.uetravel.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Customers;
 import com.uetravel.services.CustomerServices;
@@ -21,41 +21,46 @@ public class CustomerController {
     private CustomerServices customerServices;
 
     @GetMapping
-    public List<Customers> getAllCustomers() {
-        return customerServices.getAllCustomers();
+    public ModelAndView getAllCustomers() {
+        ModelAndView modelAndView = new ModelAndView("customers"); // View name: "customers"
+        List<Customers> customers = customerServices.getAllCustomers();
+        modelAndView.addObject("customers", customers); // Attribute name: "customers"
+        return modelAndView;
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<Customers>> getCustomerByName(@PathVariable String name) {
+    public ModelAndView getCustomerByName(@PathVariable String name) {
+        ModelAndView modelAndView = new ModelAndView("customers");
         List<Customers> customers = customerServices.getCustomerByName(name);
-        return customers.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(customers);
+        modelAndView.addObject("customers", customers);
+        return modelAndView;
     }
 
     @GetMapping("/gender/{gender}")
-    public ResponseEntity<List<Customers>> getCustomerByGender(@PathVariable Customers.Gender gender) {
+    public ModelAndView getCustomerByGender(@PathVariable Customers.Gender gender) {
+        ModelAndView modelAndView = new ModelAndView("customers");
         List<Customers> customers = customerServices.getCustomerByGender(gender);
-        return customers.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(customers);
+        modelAndView.addObject("customers", customers);
+        return modelAndView;
     }
 
     @GetMapping("/address/{address}")
-    public ResponseEntity<List<Customers>> getCustomerByAddress(@PathVariable String address) {
+    public ModelAndView getCustomerByAddress(@PathVariable String address) {
+        ModelAndView modelAndView = new ModelAndView("customers");
         List<Customers> customers = customerServices.getCustomerByAddress(address);
-        return customers.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(customers);
+        modelAndView.addObject("customers", customers);
+        return modelAndView;
     }
 
     @DeleteMapping("/{customerId}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Integer customerId) {
+    public ModelAndView deleteCustomer(@PathVariable Integer customerId) {
+        ModelAndView modelAndView = new ModelAndView("customers");
         try {
             customerServices.deleteCustomer(customerId);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Customer deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Customer not found");
         }
+        return modelAndView;
     }
 }

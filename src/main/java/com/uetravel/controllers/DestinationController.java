@@ -3,12 +3,12 @@ package com.uetravel.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Destinations;
 import com.uetravel.services.DestinationServices;
@@ -21,33 +21,38 @@ public class DestinationController {
     private DestinationServices destinationServices;
 
     @GetMapping
-    public List<Destinations> getAllDestinations() {
-        return destinationServices.getAllDestinations();
+    public ModelAndView getAllDestinations() {
+        ModelAndView modelAndView = new ModelAndView("destinations"); // View name: "destinations"
+        List<Destinations> destinations = destinationServices.getAllDestinations();
+        modelAndView.addObject("destinations", destinations); // Attribute name: "destinations"
+        return modelAndView;
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<Destinations>> getDestinationByName(@PathVariable String name) {
+    public ModelAndView getDestinationByName(@PathVariable String name) {
+        ModelAndView modelAndView = new ModelAndView("destinations");
         List<Destinations> destinations = destinationServices.getDestinationByName(name);
-        return destinations.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(destinations);
+        modelAndView.addObject("destinations", destinations);
+        return modelAndView;
     }
 
     @GetMapping("/address/{address}")
-    public ResponseEntity<List<Destinations>> getDestinationByAddress(@PathVariable String address) {
+    public ModelAndView getDestinationByAddress(@PathVariable String address) {
+        ModelAndView modelAndView = new ModelAndView("destinations");
         List<Destinations> destinations = destinationServices.getDestinationByAddress(address);
-        return destinations.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(destinations);
+        modelAndView.addObject("destinations", destinations);
+        return modelAndView;
     }
 
     @DeleteMapping("/{destinationId}")
-    public ResponseEntity<Void> deleteDestination(@PathVariable Integer destinationId) {
+    public ModelAndView deleteDestination(@PathVariable Integer destinationId) {
+        ModelAndView modelAndView = new ModelAndView("destinations");
         try {
             destinationServices.deleteDestination(destinationId);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Destination deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Destination not found");
         }
+        return modelAndView;
     }
 }

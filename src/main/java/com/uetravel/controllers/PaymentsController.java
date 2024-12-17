@@ -5,12 +5,12 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Payments;
 import com.uetravel.services.PaymentsServices;
@@ -23,41 +23,44 @@ public class PaymentsController {
     private PaymentsServices paymentsServices;
 
     @GetMapping
-    public List<Payments> getAllPayments() {
-        return paymentsServices.getAllPayments();
+    public ModelAndView getAllPayments() {
+        ModelAndView modelAndView = new ModelAndView("payments"); // View name: "payments"
+        List<Payments> payments = paymentsServices.getAllPayments();
+        modelAndView.addObject("payments", payments); // Attribute name: "payments"
+        return modelAndView;
     }
 
     @GetMapping("/paymentDate/{paymentDate}")
-    public ResponseEntity<List<Payments>> getPaymentByPaymentDate(@PathVariable Date paymentDate) {
+    public ModelAndView getPaymentByPaymentDate(@PathVariable Date paymentDate) {
+        ModelAndView modelAndView = new ModelAndView("payments");
         List<Payments> payments = paymentsServices.getPaymentByPaymentDate(paymentDate);
-        return payments.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(payments);
+        modelAndView.addObject("payments", payments);
+        return modelAndView;
     }
 
     @GetMapping("/amountRange")
-    public ResponseEntity<List<Payments>> getPaymentByAmountRange(
+    public ModelAndView getPaymentByAmountRange(
             @RequestParam("minAmount") BigDecimal minAmount,
             @RequestParam("maxAmount") BigDecimal maxAmount) {
+        ModelAndView modelAndView = new ModelAndView("payments");
         List<Payments> payments = paymentsServices.getPaymentByAmountRange(minAmount, maxAmount);
-        return payments.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(payments);
+        modelAndView.addObject("payments", payments);
+        return modelAndView;
     }
 
     @GetMapping("/paymentMethod/{paymentMethod}")
-    public ResponseEntity<List<Payments>> getPaymentByPaymentMethod(@PathVariable String paymentMethod) {
+    public ModelAndView getPaymentByPaymentMethod(@PathVariable String paymentMethod) {
+        ModelAndView modelAndView = new ModelAndView("payments");
         List<Payments> payments = paymentsServices.getPaymentByPaymentMethod(paymentMethod);
-        return payments.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(payments);
+        modelAndView.addObject("payments", payments);
+        return modelAndView;
     }
 
     @GetMapping("/customerName/{customerName}")
-    public ResponseEntity<List<Payments>> getPaymentByCustomerName(@PathVariable String customerName) {
+    public ModelAndView getPaymentByCustomerName(@PathVariable String customerName) {
+        ModelAndView modelAndView = new ModelAndView("payments");
         List<Payments> payments = paymentsServices.getPaymentByCustomerName(customerName);
-        return payments.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(payments);
+        modelAndView.addObject("payments", payments);
+        return modelAndView;
     }
 }

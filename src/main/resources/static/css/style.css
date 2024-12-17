@@ -69,8 +69,6 @@ text-align: center;
 .highlight:first-child {
 	border: none;
 }
-element.style {
-}
 .headroom {
 	-webkit-transition: all 0.4s ease-out;
 	-moz-transition: all 0.4s ease-out;
@@ -257,8 +255,6 @@ font-size: 32px;
 .jumbotron .fa{ 
 	color:#FF4242;
 	}
-.h-body {
-}
 .jumbotron { 
 background:#fff;
 }
@@ -501,8 +497,6 @@ footer ul li {
 .isotopeWrapper article {
 	margin-bottom: 30px;
 }
-#portfolio {
-}
 #portfolio img {
 	width: 100%;
 }
@@ -673,4 +667,10 @@ background:rgba(0,0,0,0.80)	;
 .navbar-brand img {
 	height: 40px;
 	width: auto;
+}
+
+/* Highlight active link in red */
+#main-navbar .nav li.active > a {
+    color: red !important;
+    font-weight: bold; /* Optional: Make it bold for emphasis */
 }

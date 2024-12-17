@@ -4,12 +4,12 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Vehicles;
 import com.uetravel.services.VehiclesServices;
@@ -22,41 +22,46 @@ public class VehiclesController {
     private VehiclesServices vehiclesServices;
 
     @GetMapping
-    public List<Vehicles> getAllVehicles() {
-        return vehiclesServices.getAllVehicles();
+    public ModelAndView getAllVehicles() {
+        ModelAndView modelAndView = new ModelAndView("vehicles"); // View name: "vehicles"
+        List<Vehicles> vehicles = vehiclesServices.getAllVehicles();
+        modelAndView.addObject("vehicles", vehicles); // Attribute name: "vehicles"
+        return modelAndView;
     }
 
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<Vehicles>> getVehiclesByType(@PathVariable String type) {
+    public ModelAndView getVehiclesByType(@PathVariable String type) {
+        ModelAndView modelAndView = new ModelAndView("vehicles");
         List<Vehicles> vehicles = vehiclesServices.getVehiclesByType(type);
-        return vehicles.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(vehicles);
+        modelAndView.addObject("vehicles", vehicles);
+        return modelAndView;
     }
 
     @GetMapping("/registrationNumber/{registrationNumber}")
-    public ResponseEntity<Vehicles> getVehicleByRegistrationNumber(@PathVariable String registrationNumber) {
+    public ModelAndView getVehicleByRegistrationNumber(@PathVariable String registrationNumber) {
+        ModelAndView modelAndView = new ModelAndView("vehicles");
         Vehicles vehicle = vehiclesServices.getVehicleByRegistrationNumber(registrationNumber);
-        return vehicle == null ?
-                ResponseEntity.notFound().build() :
-                ResponseEntity.ok(vehicle);
+        modelAndView.addObject("vehicle", vehicle); // Use "vehicle" for single object
+        return modelAndView;
     }
 
     @GetMapping("/purchasedDate/{purchasedDate}")
-    public ResponseEntity<List<Vehicles>> getVehiclesByPurchasedDate(@PathVariable Date purchasedDate) {
+    public ModelAndView getVehiclesByPurchasedDate(@PathVariable Date purchasedDate) {
+        ModelAndView modelAndView = new ModelAndView("vehicles");
         List<Vehicles> vehicles = vehiclesServices.getVehiclesByPurchasedDate(purchasedDate);
-        return vehicles.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(vehicles);
+        modelAndView.addObject("vehicles", vehicles);
+        return modelAndView;
     }
 
     @DeleteMapping("/{registrationNumber}")
-    public ResponseEntity<Void> deleteVehicle(@PathVariable String registrationNumber) {
+    public ModelAndView deleteVehicle(@PathVariable String registrationNumber) {
+        ModelAndView modelAndView = new ModelAndView("vehicles");
         try {
             vehiclesServices.deleteVehicle(registrationNumber);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Vehicle deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Vehicle not found");
         }
+        return modelAndView;
     }
 }

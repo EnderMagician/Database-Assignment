@@ -3,12 +3,12 @@ package com.uetravel.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.TourDestinations;
 import com.uetravel.services.TourDestinationsServices;
@@ -21,35 +21,40 @@ public class TourDestinationsController {
     private TourDestinationsServices tourDestinationsServices;
 
     @GetMapping
-    public List<TourDestinations> getAllTourDestinations() {
-        return tourDestinationsServices.getAllTourDestinations();
+    public ModelAndView getAllTourDestinations() {
+        ModelAndView modelAndView = new ModelAndView("tourDestinations"); // View name: "tourDestinations"
+        List<TourDestinations> tourDestinations = tourDestinationsServices.getAllTourDestinations();
+        modelAndView.addObject("tourDestinations", tourDestinations); // Attribute name: "tourDestinations"
+        return modelAndView;
     }
 
     @GetMapping("/tourName/{tourName}")
-    public ResponseEntity<List<TourDestinations>> getTourDestinationsByTourName(@PathVariable String tourName) {
+    public ModelAndView getTourDestinationsByTourName(@PathVariable String tourName) {
+        ModelAndView modelAndView = new ModelAndView("tourDestinations");
         List<TourDestinations> tourDestinations = tourDestinationsServices.getTourDestinationsByTourName(tourName);
-        return tourDestinations.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(tourDestinations);
+        modelAndView.addObject("tourDestinations", tourDestinations);
+        return modelAndView;
     }
 
     @GetMapping("/destinationName/{destinationName}")
-    public ResponseEntity<List<TourDestinations>> getTourDestinationsByDestinationName(@PathVariable String destinationName) {
+    public ModelAndView getTourDestinationsByDestinationName(@PathVariable String destinationName) {
+        ModelAndView modelAndView = new ModelAndView("tourDestinations");
         List<TourDestinations> tourDestinations = tourDestinationsServices.getTourDestinationsByDestinationName(destinationName);
-        return tourDestinations.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(tourDestinations);
+        modelAndView.addObject("tourDestinations", tourDestinations);
+        return modelAndView;
     }
 
     @DeleteMapping("/{tourId}/{destinationId}")
-    public ResponseEntity<Void> deleteTourDestination(
+    public ModelAndView deleteTourDestination(
             @PathVariable Integer tourId,
             @PathVariable Integer destinationId) {
+        ModelAndView modelAndView = new ModelAndView("tourDestinations");
         try {
             tourDestinationsServices.deleteTourDestination(tourId, destinationId);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Tour Destination deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Tour Destination not found");
         }
+        return modelAndView;
     }
 }

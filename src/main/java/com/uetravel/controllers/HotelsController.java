@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uetravel.models.Hotels;
 import com.uetravel.services.HotelsServices;
@@ -23,51 +23,56 @@ public class HotelsController {
     private HotelsServices hotelsServices;
 
     @GetMapping
-    public List<Hotels> getAllHotels() {
-        return hotelsServices.getAllHotels();
+    public ModelAndView getAllHotels() {
+        ModelAndView modelAndView = new ModelAndView("hotels"); // View name: "hotels"
+        List<Hotels> hotels = hotelsServices.getAllHotels();
+        modelAndView.addObject("hotels", hotels); // Attribute name: "hotels"
+        return modelAndView;
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<Hotels>> getHotelByName(@PathVariable String name) {
+    public ModelAndView getHotelByName(@PathVariable String name) {
+        ModelAndView modelAndView = new ModelAndView("hotels");
         List<Hotels> hotels = hotelsServices.getHotelByName(name);
-        return hotels.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(hotels);
+        modelAndView.addObject("hotels", hotels);
+        return modelAndView;
     }
 
     @GetMapping("/address/{address}")
-    public ResponseEntity<List<Hotels>> getHotelByAddress(@PathVariable String address) {
+    public ModelAndView getHotelByAddress(@PathVariable String address) {
+        ModelAndView modelAndView = new ModelAndView("hotels");
         List<Hotels> hotels = hotelsServices.getHotelByAddress(address);
-        return hotels.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(hotels);
+        modelAndView.addObject("hotels", hotels);
+        return modelAndView;
     }
 
     @GetMapping("/rating/{rating}")
-    public ResponseEntity<List<Hotels>> getHotelByRating(@PathVariable Integer rating) {
+    public ModelAndView getHotelByRating(@PathVariable Integer rating) {
+        ModelAndView modelAndView = new ModelAndView("hotels");
         List<Hotels> hotels = hotelsServices.getHotelByRating(rating);
-        return hotels.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(hotels);
+        modelAndView.addObject("hotels", hotels);
+        return modelAndView;
     }
 
     @GetMapping("/priceRange")
-    public ResponseEntity<List<Hotels>> getHotelByPriceRange(
+    public ModelAndView getHotelByPriceRange(
             @RequestParam("minPrice") BigDecimal minPrice,
             @RequestParam("maxPrice") BigDecimal maxPrice) {
+        ModelAndView modelAndView = new ModelAndView("hotels");
         List<Hotels> hotels = hotelsServices.getHotelByPriceRange(minPrice, maxPrice);
-        return hotels.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.ok(hotels);
+        modelAndView.addObject("hotels", hotels);
+        return modelAndView;
     }
 
     @DeleteMapping("/{hotelId}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable Integer hotelId) {
+    public ModelAndView deleteHotel(@PathVariable Integer hotelId) {
+        ModelAndView modelAndView = new ModelAndView("hotels");
         try {
             hotelsServices.deleteHotel(hotelId);
-            return ResponseEntity.noContent().build();
+            modelAndView.addObject("message", "Hotel deleted successfully!");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            modelAndView.addObject("error", "Hotel not found");
         }
+        return modelAndView;
     }
 }
