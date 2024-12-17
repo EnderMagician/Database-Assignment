@@ -11,7 +11,6 @@ import com.uetravel.repositories.BookingsRepo;
 
 @Service
 public class BookingsServices {
-
     @Autowired
     private BookingsRepo bookingsRepo;
 

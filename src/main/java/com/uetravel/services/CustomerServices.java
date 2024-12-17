@@ -10,7 +10,6 @@ import com.uetravel.repositories.CustomerRepo;
 
 @Service
 public class CustomerServices {
-
     @Autowired
     private CustomerRepo customerRepo;
 
