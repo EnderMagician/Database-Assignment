@@ -11,7 +11,6 @@ import com.uetravel.models.Assignings;
 
 @Repository
 public interface AssigningsRepo extends JpaRepository<Assignings, Integer> {
-
     @Query("SELECT a FROM Assignings a WHERE a.driver.employeeName = :employeeName OR a.tourGuide.employeeName = :employeeName")
     List<Assignings> findByEmployeeName(@Param("employeeName") String employeeName);
 

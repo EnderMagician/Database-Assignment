@@ -2,6 +2,7 @@ package com.uetravel.models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -47,5 +48,19 @@ public class TourDestinations {
     public static class TourDestinationId implements Serializable {
         private Integer tourId;
         private Integer destinationId;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            TourDestinationId that = (TourDestinationId) o;
+            return Objects.equals(tourId, that.tourId) &&
+                Objects.equals(destinationId, that.destinationId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(tourId, destinationId);
+        }
     }
 }

@@ -163,9 +163,6 @@ CREATE TABLE TourDestinations (
 
 CREATE INDEX idx_tourid ON TourDestinations (TourID);
 
-SET SQL_SAFE_UPDATES = 0;
-SET foreign_key_checks = 0;
-
 INSERT INTO Tours (TourName, Description, StartDate, EndDate, BookingDeadline, Price, MaxCapacity, Status, ImageURL) VALUES
 ('Paris Getaway', 'Experience the city of love and lights.', '2024-07-01', '2024-07-07', '2024-06-15', 1200.50, 30, 'Open', 'images/paris.jpg'),
 ('Rome Adventure', 'Explore the history and architecture of Rome.', '2024-08-10', '2024-08-17', '2024-07-25', 1500.00, 25, 'Open', 'images/rome.jpg'),
@@ -373,25 +370,25 @@ INSERT INTO Bookings (CustomerID, BookingDate, TourID, AssignedHotel, AssignedVe
 (11, '2024-12-24 14:45:00', 1, 1, 'ABC123456', '123 Royal St, Cityville', 'Completed');
 
 INSERT INTO Assignings (DriverID, TourGuideID, TourID, Vehicle, StartTime, EndTime, StartDestination, EndDestination) VALUES
-(1, 2, 1, 'ABC123456', '2024-12-10 08:00:00', '2024-12-10 12:00:00', 1, 2),
-(3, 4, 2, 'XYZ987654', '2024-12-12 09:30:00', '2024-12-12 15:30:00', 2, 3),
-(5, 6, 3, 'LMN456789', '2024-12-14 07:00:00', '2024-12-14 13:00:00', 3, 4),
-(7, 8, 4, 'QRS135790', '2024-12-15 10:00:00', '2024-12-15 14:00:00', 4, 5),
-(9, 10, 5, 'JKL246813', '2024-12-16 11:30:00', '2024-12-16 17:30:00', 5, 6),
-(11, 12, 6, 'TUV321654', '2024-12-18 08:00:00', '2024-12-18 14:00:00', 6, 7),
-(13, 14, 7, 'GHI852963', '2024-12-19 13:00:00', '2024-12-19 19:00:00', 7, 8),
-(15, 16, 8, 'DEF741258', '2024-12-20 07:30:00', '2024-12-20 13:30:00', 8, 9),
-(17, 18, 9, 'MNO369258', '2024-12-22 12:00:00', '2024-12-22 18:00:00', 9, 10),
-(19, 20, 10, 'PQR159753', '2024-12-24 09:00:00', '2024-12-24 15:00:00', 10, 11),
-(21, 22, 1, 'ABC123456', '2024-12-10 10:00:00', '2024-12-10 14:00:00', 1, 3),
-(23, 24, 2, 'XYZ987654', '2024-12-12 08:30:00', '2024-12-12 14:30:00', 2, 4),
-(25, 26, 3, 'LMN456789', '2024-12-14 09:00:00', '2024-12-14 15:00:00', 3, 5),
-(27, 28, 4, 'QRS135790', '2024-12-15 07:30:00', '2024-12-15 13:30:00', 4, 6),
-(29, 30, 5, 'JKL246813', '2024-12-16 08:30:00', '2024-12-16 14:30:00', 5, 7),
-(31, 32, 6, 'TUV321654', '2024-12-18 10:00:00', '2024-12-18 16:00:00', 6, 8),
-(33, 34, 7, 'GHI852963', '2024-12-19 12:00:00', '2024-12-19 18:00:00', 7, 9),
-(35, 36, 8, 'DEF741258', '2024-12-20 09:00:00', '2024-12-20 15:00:00', 8, 10),
-(37, 38, 9, 'MNO369258', '2024-12-22 10:00:00', '2024-12-22 16:00:00', 9, 11);
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 1, 'ABC123456', '2024-12-10 08:00:00', '2024-12-10 12:00:00', 1, 2),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 2, 'XYZ987654', '2024-12-12 09:30:00', '2024-12-12 15:30:00', 2, 3),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 3, 'LMN456789', '2024-12-14 07:00:00', '2024-12-14 13:00:00', 3, 4),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 4, 'QRS135790', '2024-12-15 10:00:00', '2024-12-15 14:00:00', 4, 5),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 5, 'JKL246813', '2024-12-16 11:30:00', '2024-12-16 17:30:00', 5, 6),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 6, 'TUV321654', '2024-12-18 08:00:00', '2024-12-18 14:00:00', 6, 7),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 7, 'GHI852963', '2024-12-19 13:00:00', '2024-12-19 19:00:00', 7, 8),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 8, 'DEF741258', '2024-12-20 07:30:00', '2024-12-20 13:30:00', 8, 9),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 9, 'MNO369258', '2024-12-22 12:00:00', '2024-12-22 18:00:00', 9, 10),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 10, 'PQR159753', '2024-12-24 09:00:00', '2024-12-24 15:00:00', 10, 11),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 1, 'ABC123456', '2024-12-10 10:00:00', '2024-12-10 14:00:00', 1, 3),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 2, 'XYZ987654', '2024-12-12 08:30:00', '2024-12-12 14:30:00', 2, 4),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 3, 'LMN456789', '2024-12-14 09:00:00', '2024-12-14 15:00:00', 3, 5),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 4, 'QRS135790', '2024-12-15 07:30:00', '2024-12-15 13:30:00', 4, 6),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 5, 'JKL246813', '2024-12-16 08:30:00', '2024-12-16 14:30:00', 5, 7),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 6, 'TUV321654', '2024-12-18 10:00:00', '2024-12-18 16:00:00', 6, 8),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 7, 'GHI852963', '2024-12-19 12:00:00', '2024-12-19 18:00:00', 7, 9),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 8, 'DEF741258', '2024-12-20 09:00:00', '2024-12-20 15:00:00', 8, 10),
+((SELECT EmployeeID FROM Employees ORDER BY RAND() LIMIT 1), (SELECT EmployeeID FROM Employees WHERE Position = 'TourGuide' ORDER BY RAND() LIMIT 1), 9, 'MNO369258', '2024-12-22 10:00:00', '2024-12-22 16:00:00', 9, 11);
 
 INSERT INTO TourDestinations (TourID, DestinationID, ArrivalTime, DepartureTime) VALUES
 (1, 1, '2024-12-10 08:00:00', '2024-12-13 12:00:00'),
@@ -419,6 +416,3 @@ INSERT INTO TourDestinations (TourID, DestinationID, ArrivalTime, DepartureTime)
 (13, 23, '2024-12-14 11:00:00', '2024-12-17 15:00:00'),
 (14, 24, '2024-12-16 12:00:00', '2024-12-19 16:00:00'),
 (15, 25, '2024-12-18 08:00:00', '2024-12-21 12:00:00');
-
-SET SQL_SAFE_UPDATES = 1;
-SET foreign_key_checks = 1;
