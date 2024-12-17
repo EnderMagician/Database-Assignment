@@ -120,3 +120,8 @@ body {
 .btn:hover {
     border: 1px solid #2d79f3;
 }
+
+.btn img {
+    height: 20px;
+    width: auto;
+}
