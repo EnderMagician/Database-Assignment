@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.uetravel.models.Destinations;
 import com.uetravel.models.Tours;
 import com.uetravel.services.ToursServices;
 
@@ -52,6 +53,19 @@ public class ToursController {
         ModelAndView modelAndView = new ModelAndView("tours");
         List<Tours> tours = toursServices.getTourByDestination(destinationName);
         modelAndView.addObject("tours", tours);
+        return modelAndView;
+    }
+
+    @GetMapping("/{tourId}/destinations")
+    public ModelAndView getTourDestinations(@PathVariable String tourName) {
+        ModelAndView modelAndView = new ModelAndView("tourDestinations"); 
+
+        try {
+            List<Destinations> destinations = toursServices.getTourDestinationsByTourName(tourName);
+            modelAndView.addObject("destinations", destinations); 
+        } catch (IllegalArgumentException e) {
+            modelAndView.addObject("error", e.getMessage()); 
+        }
         return modelAndView;
     }
 
