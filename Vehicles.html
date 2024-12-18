@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Vehicles</title>
+</head> 
+
+<div id="main-navbar"></div> 
+
+<div th:if="${message}">
+  <p th:text="${message}"></p>
+</div>
+
+<div th:if="${not #lists.isEmpty(vehicles)}"> 
+  <table>
+    <thead>
+      <tr>
+        <th>Registration Number</th>
+        <th>Type</th> 
+        <th>Purchased Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="vehicle : ${vehicles}"> 
+        <td th:text="${vehicle.registrationNumber}"></td>
+        <td th:text="${vehicle.type.type}"></td> 
+        <td th:text="${vehicle.purchasedDate}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:if="${error}">
+  <p th:text="${error}"></p>
+</div>
+
+<script src="RoleChecking.js"></script>
+
+</body>
+</html>

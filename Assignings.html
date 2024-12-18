@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assignings</title>
+</head>
+<body>
+    <div id="main-navbar"></div>
+
+    <div th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(assignings)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Driver</th>
+                    <th>Tour Guide</th>
+                    <th>Vehicle</th>
+                    <th>Tour</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Start Destination</th>
+                    <th>End Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="assigning : ${assignings}">
+                    <td th:text="${assigning.assigningId}"></td>
+                    <td th:text="${assigning.driver.employeeName}"></td>
+                    <td th:text="${assigning.tourGuide.employeeName}"></td>
+                    <td th:text="${assigning.vehicle.registrationNumber}"></td>
+                    <td th:text="${assigning.tour.tourName}"></td>
+                    <td th:text="${assigning.startTime}"></td>
+                    <td th:text="${assigning.endTime}"></td>
+                    <td th:text="${assigning.startDestination.destinationName}"></td>
+                    <td th:text="${assigning.endDestination.destinationName}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${error}">
+        <p th:text="${error}"></p>
+    </div>
+
+    <script src="RoleChecking.js"></script>
+
+</body>
+</html>

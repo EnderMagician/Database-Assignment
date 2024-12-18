@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Customers</title>
+</head>
+
+<div id="main-navbar"></div> 
+
+<div th:if="${message}">
+  <p th:text="${message}"></p>
+</div>
+
+<div th:if="${not #lists.isEmpty(customers)}"> 
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="customer : ${customers}"> 
+        <td th:text="${customer.customerId}"></td>
+        <td th:text="${customer.customerName}"></td>
+        <td th:text="${customer.birthday}"></td>
+        <td th:text="${customer.gender}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+        <td th:text="${customer.address}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:if="${error}">
+  <p th:text="${error}"></p>
+</div>
+
+<script src="RoleChecking.js"></script>
+
+</body>
+</html>

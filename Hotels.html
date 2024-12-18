@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Hotels</title>
+</head>
+<body> 
+
+<div id="main-navbar"></div>
+
+<div th:if="${message}">
+  <p th:text="${message}"></p>
+</div>
+
+<div th:if="${not #lists.isEmpty(hotels)}">  
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Rating</th>
+        <th>Price Per Day</th>
+        <th>Rooms Available</th>
+        <th>Image URL</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="hotel : ${hotels}">  
+        <td th:text="${hotel.hotelId}"></td>
+        <td th:text="${hotel.hotelName}"></td>
+        <td th:text="${hotel.address}"></td>
+        <td th:text="${hotel.rating}"></td>
+        <td th:text="${hotel.pricePerDay}"></td>
+        <td th:text="${hotel.roomsAvailable}"></td>
+        <td> 
+          <img th:src="${hotel.imageUrl}" alt="Hotel Image" width="100"> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:if="${error}">
+  <p th:text="${error}"></p>
+</div>
+
+<script src="RoleChecking.js"></script> 
+
+</body>
+</html>
