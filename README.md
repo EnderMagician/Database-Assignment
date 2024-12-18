@@ -7,6 +7,10 @@ This repository contains the source code for a website that allows users to brow
 [Database](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/database/Database.sql)
 ![Database](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/database/Database.png)
 
+## Demo
+
+[Demo](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/template/Starting.html)
+
 ## Features
 
 * **User Authentication:** Secure user registration and login.
