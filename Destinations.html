@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Destinations</title>
+  <link rel="stylesheet" href="hidingwindow.css"> 
 </head>
+<body>
 
-<div id="main-navbar"></div> 
-
-<div th:if="${message}"> 
-  <p th:text="${message}"></p> 
+<div id="main-navbar"></div>
+<h2>Destinations Table</h2>
+<div th:if="${message}">
+  <p th:text="${message}"></p>
 </div>
 
 <div th:if="${not #lists.isEmpty(destinations)}"> 
@@ -18,7 +20,8 @@
         <th>Name</th>
         <th>Description</th>
         <th>Address</th>
-        <th>Image URL</th> 
+        <th>Image URL</th>
+        <th>Actions</th> 
       </tr>
     </thead>
     <tbody>
@@ -27,19 +30,53 @@
         <td th:text="${destination.destinationName}"></td>
         <td th:text="${destination.description}"></td>
         <td th:text="${destination.address}"></td>
-        <td> 
+        <td>
           <img th:src="${destination.imageUrl}" alt="Destination Image" width="100"> 
+        </td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-destination-id=${destination.destinationId}">Update</button> 
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div th:if="${error}"> 
-  <p th:text="${error}"></p> 
+<div th:if="${error}">
+  <p th:text="${error}"></p>
+</div>
+
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update Destination with ID: <span id="modalDestinationId"></span></p> 
+    <form id="updateDestinationForm" method="post"> 
+      <input type="hidden" name="destinationId" id="destinationIdInput"> 
+
+      <label for="destinationName">Name:</label>
+      <input type="text" name="destinationName" id="destinationNameInput" placeholder="Enter new name">
+
+      <label for="description">Description:</label>
+      <textarea name="description" id="descriptionInput" placeholder="Enter new description"></textarea> 
+
+      <label for="address">Address:</label>
+      <input type="text" name="address" id="addressInput" placeholder="Enter new address">
+
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" name="imageUrl" id="imageUrlInput" placeholder="Enter new image URL">
+
+      <button type="submit">Update Destination</button>
+    </form>
+
+    <form id="deleteDestinationForm" method="post" th:action="@{'/destinations/' + ${destination.destinationId}}">
+      <button type="submit">Delete Destination</button>
+    </form>
+    <div id="modalFormContainer"></div> 
+
+  </div>
 </div>
 
 <script src="RoleChecking.js"></script>
+<script src="modal.js"></script>
 
 </body>
 </html>

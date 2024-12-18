@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Employees</title>
+  <link rel="stylesheet" href="hidingwindow.css"> 
 </head>
+<body>
 
-<div id="main-navbar"></div> 
-
+<div id="main-navbar"></div>
+<h2>Employees Table</h2>
 <div th:if="${message}">
   <p th:text="${message}"></p>
 </div>
@@ -23,6 +25,7 @@
         <th>Position</th>
         <th>Started Date</th>
         <th>Salary</th>
+        <th>Actions</th> 
       </tr>
     </thead>
     <tbody>
@@ -36,6 +39,9 @@
         <td th:text="${employee.position}"></td>
         <td th:text="${employee.startedDate}"></td>
         <td th:text="${employee.salary}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-employee-id=${employee.employeeId}">Update</button> 
+        </td>
       </tr>
     </tbody>
   </table>
@@ -45,7 +51,56 @@
   <p th:text="${error}"></p>
 </div>
 
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update Employee with ID: <span id="modalEmployeeId"></span></p> 
+
+    <form id="updateEmployeeForm" method="post"> 
+      <input type="hidden" name="employeeId" id="employeeIdInput"> 
+
+      <label for="employeeName">Name:</label>
+      <input type="text" name="employeeName" id="employeeNameInput" placeholder="Enter new name">
+
+      <label for="birthday">Birthday:</label>
+      <input type="date" name="birthday" id="birthdayInput">
+
+      <label for="gender">Gender:</label>
+      <select name="gender" id="genderSelect">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="emailInput" placeholder="Enter new email">
+
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="tel" name="phoneNumber" id="phoneNumberInput" placeholder="Enter new phone number">
+
+      <label for="position">Position:</label>
+      <select name="position" id="positionSelect">
+        <option value="Driver">Driver</option>
+        <option value="TourGuide">TourGuide</option>
+      </select>
+
+      <label for="startedDate">Started Date:</label>
+      <input type="date" name="startedDate" id="startedDateInput">
+
+      <label for="salary">Salary:</label>
+      <input type="number" name="salary" id="salaryInput" placeholder="Enter new salary">
+
+      <button type="submit">Update Employee</button>
+    </form>
+
+    <form id="deleteEmployeeForm" method="post" th:action="@{'/employees/' + ${employee.employeeId}}"> 
+      <button type="submit">Delete Employee</button>
+    </form>
+  </div>
+</div>
+
 <script src="RoleChecking.js"></script>
+<script src="modal.js"></script> 
 
 </body>
 </html>

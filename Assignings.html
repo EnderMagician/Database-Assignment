@@ -2,50 +2,96 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Assignings</title>
+    <link rel="stylesheet" href="hidingwindow.css">
 </head>
 <body>
+
     <div id="main-navbar"></div>
-
+    <h2>Assignings Table</h2>
     <div th:if="${message}">
-        <p th:text="${message}"></p>
+      <p th:text="${message}"></p>
     </div>
-
+  
     <div th:if="${not #lists.isEmpty(assignings)}">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Driver</th>
-                    <th>Tour Guide</th>
-                    <th>Vehicle</th>
-                    <th>Tour</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Start Destination</th>
-                    <th>End Destination</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="assigning : ${assignings}">
-                    <td th:text="${assigning.assigningId}"></td>
-                    <td th:text="${assigning.driver.employeeName}"></td>
-                    <td th:text="${assigning.tourGuide.employeeName}"></td>
-                    <td th:text="${assigning.vehicle.registrationNumber}"></td>
-                    <td th:text="${assigning.tour.tourName}"></td>
-                    <td th:text="${assigning.startTime}"></td>
-                    <td th:text="${assigning.endTime}"></td>
-                    <td th:text="${assigning.startDestination.destinationName}"></td>
-                    <td th:text="${assigning.endDestination.destinationName}"></td>
-                </tr>
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Driver</th>
+            <th>Tour Guide</th>
+            <th>Vehicle</th>
+            <th>Tour</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Start Destination</th>
+            <th>End Destination</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="assigning : ${assignings}">
+            <td th:text="${assigning.assigningId}"></td>
+            <td th:text="${assigning.driver.employeeName}"></td>
+            <td th:text="${assigning.tourGuide.employeeName}"></td>
+            <td th:text="${assigning.vehicle.registrationNumber}"></td>
+            <td th:text="${assigning.tour.tourName}"></td>
+            <td th:text="${assigning.startTime}"></td>
+            <td th:text="${assigning.endTime}"></td>
+            <td th:text="${assigning.startDestination.destinationName}"></td>
+            <td th:text="${assigning.endDestination.destinationName}"></td>
+            <td>
+              <button type="button" class="openModalBtn" th:attr="data-assigning-id=${assigning.assigningId}">Update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
+  
     <div th:if="${error}">
-        <p th:text="${error}"></p>
+      <p th:text="${error}"></p>
+    </div>
+  
+    <div id="updateModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Update assigning with ID: <span id="modalBookingId"></span></p> 
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/driver'}" method="post">
+          <input type="text" name="driverName" placeholder="Enter new driver name">
+          <button type="submit">Update Driver</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/tourGuide'}" method="post">
+          <input type="text" name="tourGuideName" placeholder="Enter new tour guide name">
+          <button type="submit">Update Tour Guide</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/startTime'}" method="post">
+          <input type="datetime-local" name="startTime" th:value="${#temporals.format(assigning.startTime, 'yyyy-MM-ddThh:mm')}">
+          <button type="submit">Update Start Time</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/endTime'}" method="post">
+          <input type="datetime-local" name="endTime" th:value="${#temporals.format(assigning.endTime, 'yyyy-MM-ddThh:mm')}">
+          <button type="submit">Update End Time</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/startDestination'}" method="post">
+          <input type="text" name="startDestinationName" placeholder="Enter new start destination">
+          <button type="submit">Update Start Destination</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/endDestination'}" method="post">
+          <input type="text" name="endDestinationName" placeholder="Enter new end destination">
+          <button type="submit">Update End Destination</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/vehicle'}" method="post">
+          <input type="text" name="registrationNumber" placeholder="Enter new vehicle registration number">
+          <button type="submit">Update Vehicle</button>
+        </form>
+        <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/tour'}" method="post">
+          <input type="text" name="tourName" placeholder="Enter new tour name">
+          <button type="submit">Update Tour</button>
+        </form>
+        <div id="modalFormContainer"></div>
+      </div>
     </div>
 
     <script src="RoleChecking.js"></script>
-
+    <script src="modal.js"></script> 
 </body>
 </html>

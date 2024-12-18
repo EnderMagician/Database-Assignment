@@ -2,8 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Payments</title>
+  <link rel="stylesheet" href="hidingwindow.css"> 
 </head>
-<div id="main-navbar"></div> 
+<body>
+
+<div id="main-navbar"></div>
+<h2> Payments Table </h2>
 
 <div th:if="${message}">
   <p th:text="${message}"></p>
@@ -14,19 +18,23 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Customer Name</th> 
+        <th>Customer Name</th>
         <th>Payment Date</th>
         <th>Amount</th>
         <th>Payment Method</th>
+        <th>Actions</th> 
       </tr>
     </thead>
     <tbody>
       <tr th:each="payment : ${payments}">  
         <td th:text="${payment.paymentId}"></td>
-        <td th:text="${payment.customer.customerName}"></td> 
+        <td th:text="${payment.customer.customerName}"></td>
         <td th:text="${payment.paymentDate}"></td>
         <td th:text="${payment.amount}"></td>
         <td th:text="${payment.paymentMethod}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-payment-id=${payment.paymentId}">Update</button> 
+        </td>
       </tr>
     </tbody>
   </table>
@@ -36,7 +44,37 @@
   <p th:text="${error}"></p>
 </div>
 
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update Payment with ID: <span id="modalPaymentId"></span></p> 
+
+    <form id="updatePaymentForm" method="post"> 
+      <input type="hidden" name="paymentId" id="paymentIdInput"> 
+
+      <label for="customerName">Customer Name:</label>
+      <input type="text" name="customerName" id="customerNameInput" placeholder="Enter new customer name">
+
+      <label for="paymentDate">Payment Date:</label>
+      <input type="date" name="paymentDate" id="paymentDateInput">
+
+      <label for="amount">Amount:</label>
+      <input type="number" name="amount" id="amountInput" placeholder="Enter new amount">
+
+      <label for="paymentMethod">Payment Method:</label>
+      <input type="text" name="paymentMethod" id="paymentMethodInput" placeholder="Enter new payment method">
+
+      <button type="submit">Update Payment</button>
+    </form>
+
+    <form id="deletePaymentForm" method="post" th:action="@{'/payments/' + ${payment.paymentId}}"> 
+      <button type="submit">Delete Payment</button>
+    </form>
+  </div>
+</div>
+
 <script src="RoleChecking.js"></script>
+<script src="modal.js"></script> 
 
 </body>
 </html>
