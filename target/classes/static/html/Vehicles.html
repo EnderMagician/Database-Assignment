@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Vehicles</title>
-</head> 
+  <link rel="stylesheet" href="../css/hidingwindow.css"> 
+</head>
+<body>
 
-<div id="main-navbar"></div> 
+<div id="main-navbar"></div>
 
 <div th:if="${message}">
   <p th:text="${message}"></p>
@@ -15,8 +17,9 @@
     <thead>
       <tr>
         <th>Registration Number</th>
-        <th>Type</th> 
+        <th>Type</th>
         <th>Purchased Date</th>
+        <th>Actions</th> 
       </tr>
     </thead>
     <tbody>
@@ -24,6 +27,9 @@
         <td th:text="${vehicle.registrationNumber}"></td>
         <td th:text="${vehicle.type.type}"></td> 
         <td th:text="${vehicle.purchasedDate}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-vehicle-id=${vehicle.registrationNumber}">Update</button> 
+        </td>
       </tr>
     </tbody>
   </table>
@@ -33,7 +39,31 @@
   <p th:text="${error}"></p>
 </div>
 
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update Vehicle with Registration Number: <span id="modalVehicleId"></span></p> 
+
+    <form id="updateVehicleForm" method="post"> 
+      <input type="hidden" name="registrationNumber" id="registrationNumberInput"> 
+
+      <label for="type">Type:</label>
+      <input type="text" name="type" id="typeInput" placeholder="Enter new type">
+
+      <label for="purchasedDate">Purchased Date:</label>
+      <input type="date" name="purchasedDate" id="purchasedDateInput">
+
+      <button type="submit">Update Vehicle</button>
+    </form>
+
+    <form id="deleteVehicleForm" method="post" th:action="@{'/vehicles/' + ${vehicle.registrationNumber}}"> 
+      <button type="submit">Delete Vehicle</button>
+    </form>
+  </div>
+</div>
+
 <script src="../javascript/RoleChecking.js"></script>
+<script src="../javascript/modal.js"></script> 
 
 </body>
 </html>

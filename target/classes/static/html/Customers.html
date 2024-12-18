@@ -79,8 +79,7 @@
       <button type="submit">Update Customer</button>
     </form>
 
-    <form id="deleteCustomerForm" method="post"> 
-      <input type="hidden" name="customerId" id="customerIdInputDelete"> 
+    <form id="deleteCustomerForm" method="post" th:action="@{'/customers/' + ${customer.customerId}}">
       <button type="submit">Delete Customer</button>
     </form>
     <div id="modalFormContainer"></div> 

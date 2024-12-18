@@ -1,60 +1,115 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <title>Tours</title>
+  <link rel="stylesheet" href="../css/hidingwindow.css">
 </head>
-<body> 
 
-<div id="main-navbar"></div>
+<body>
 
-<div th:if="${message}">
-  <p th:text="${message}"></p>
-</div>
+  <div id="main-navbar"></div>
 
-<div th:if="${not #lists.isEmpty(tours)}"> 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Booking Deadline</th>
-        <th>Price</th>
-        <th>Max Capacity</th>
-        <th>Status</th>
-        <th>Image URL</th>
-        <th>Destinations</th> 
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="tour : ${tours}"> 
-        <td th:text="${tour.tourId}"></td>
-        <td th:text="${tour.tourName}"></td>
-        <td th:text="${tour.description}"></td>
-        <td th:text="${tour.startDate}"></td>
-        <td th:text="${tour.endDate}"></td>
-        <td th:text="${tour.bookingDeadline}"></td>
-        <td th:text="${tour.price}"></td>
-        <td th:text="${tour.maxCapacity}"></td>
-        <td th:text="${tour.status}"></td>
-        <td>
-          <img th:src="${tour.imageUrl}" alt="Tour Image" width="100"> 
-        </td>
-        <td> 
-          <a th:href="@{'/tours/' + ${tour.tourName} + '/destinations'}">View Destinations</a> 
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div th:if="${message}">
+    <p th:text="${message}"></p>
+  </div>
 
-<div th:if="${error}">
-  <p th:text="${error}"></p>
-</div>
+  <div th:if="${not #lists.isEmpty(tours)}">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Booking Deadline</th>
+          <th>Price</th>
+          <th>Max Capacity</th>
+          <th>Status</th>
+          <th>Image URL</th>
+          <th>Destinations</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="tour : ${tours}">
+          <td th:text="${tour.tourId}"></td>
+          <td th:text="${tour.tourName}"></td>
+          <td th:text="${tour.description}"></td>
+          <td th:text="${tour.startDate}"></td>
+          <td th:text="${tour.endDate}"></td>
+          <td th:text="${tour.bookingDeadline}"></td>
+          <td th:text="${tour.price}"></td>
+          <td th:text="${tour.maxCapacity}"></td>
+          <td th:text="${tour.status}"></td>
+          <td>
+            <img th:src="${tour.imageUrl}" alt="Tour Image" width="100">
+          </td>
+          <td>
+            <a th:href="@{'/tours/' + ${tour.tourName} + '/destinations'}">View Destinations</a>
+          </td>
+          <td>
+            <button type="button" class="openModalBtn" th:attr="data-tour-id=${tour.tourId}">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<script src="../javascript/RoleChecking.js"></script> 
+  <div th:if="${error}">
+    <p th:text="${error}"></p>
+  </div>
+
+  <div id="updateModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Update Tour with ID: <span id="modalTourId"></span></p>
+
+      <form id="updateTourForm" method="post">
+        <input type="hidden" name="tourId" id="tourIdInput">
+
+        <label for="tourName">Name:</label>
+        <input type="text" name="tourName" id="tourNameInput" placeholder="Enter new name">
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="descriptionInput" placeholder="Enter new description"></textarea>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" name="startDate" id="startDateInput">
+
+        <label for="endDate">End Date:</label>
+        <input type="date" name="endDate" id="endDateInput">
+
+        <label for="bookingDeadline">Booking Deadline:</label>
+        <input type="date" name="bookingDeadline" id="bookingDeadlineInput">
+
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="priceInput" placeholder="Enter new price">
+
+        <label for="maxCapacity">Max Capacity:</label>
+        <input type="number" name="maxCapacity" id="maxCapacityInput" placeholder="Enter new max capacity">
+
+        <label for="status">Status:</label>
+        <select name="status" id="statusSelect">
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+        </select>
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="imageUrlInput" placeholder="Enter new image URL">
+
+        <button type="submit">Update Tour</button>
+      </form>
+
+      <form id="deleteTourForm" method="post" th:action="@{'/tours/' + ${tour.tourId}}">
+        <button type="submit">Delete Tour</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../javascript/RoleChecking.js"></script>
+  <script src="../javascript/modal.js"></script>
 
 </body>
 </html>

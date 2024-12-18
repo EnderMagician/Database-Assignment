@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Profile</title>
+  <title>Profile</title>
+  <link rel="stylesheet" href="../css/hidingwindow.css"> 
 </head>
 <body>
 
@@ -9,79 +10,102 @@
 
 <h2>Customer Details</h2>
 <div th:if="${not #lists.isEmpty(customers)}">
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Birthday</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="customer : ${customers}">
-            <td th:text="${customer.customerId}"></td>
-            <td th:text="${customer.customerName}"></td>
-            <td th:text="${customer.birthday}"></td>
-            <td th:text="${customer.gender}"></td>
-            <td th:text="${customer.email}"></td>
-            <td th:text="${customer.phoneNumber}"></td>
-            <td th:text="${customer.address}"></td>
-        </tr>
-        </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="customer : ${customers}">
+        <td th:text="${customer.customerId}"></td>
+        <td th:text="${customer.customerName}"></td>
+        <td th:text="${customer.birthday}"></td>
+        <td th:text="${customer.gender}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+        <td th:text="${customer.address}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-customer-id=${customer.customerId}">Update</button> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <h2>Bookings</h2>
 <div th:if="${not #lists.isEmpty(bookings)}">
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tour Name</th>
-            <th>Booking Date</th>
-            <th>Pickup Address</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="booking : ${bookings}">
-            <td th:text="${booking.bookingId}"></td>
-            <td th:text="${booking.tour.tourName}"></td>
-            <td th:text="${booking.bookingDate}"></td>
-            <td th:text="${booking.pickupAddress}"></td>
-            <td th:text="${booking.status}"></td>
-        </tr>
-        </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tour Name</th>
+        <th>Booking Date</th>
+        <th>Pickup Address</th>
+        <th>Status</th>
+        <th>Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="booking : ${bookings}">
+        <td th:text="${booking.bookingId}"></td>
+        <td th:text="${booking.tour.tourName}"></td>
+        <td th:text="${booking.bookingDate}"></td>
+        <td th:text="${booking.pickupAddress}"></td>
+        <td th:text="${booking.status}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-booking-id=${booking.bookingId}">Update</button> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <h2>Payments</h2>
 <div th:if="${not #lists.isEmpty(payments)}">
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Payment Date</th>
-            <th>Amount</th>
-            <th>Payment Method</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="payment : ${payments}">
-            <td th:text="${payment.paymentId}"></td>
-            <td th:text="${payment.paymentDate}"></td>
-            <td th:text="${payment.amount}"></td>
-            <td th:text="${payment.paymentMethod}"></td>
-        </tr>
-        </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Payment Date</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+        <th>Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="payment : ${payments}">
+        <td th:text="${payment.paymentId}"></td>
+        <td th:text="${payment.paymentDate}"></td>
+        <td th:text="${payment.amount}"></td>
+        <td th:text="${payment.paymentMethod}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-payment-id=${payment.paymentId}">Update</button> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update with ID: <span id="modalId"></span></p> 
+
+    <div id="modalFormContainer"></div> 
+
+  </div>
 </div>
 
 <script src="../javascript/RoleChecking.js"></script>
+<script src="../javascript/modal.js"></script> 
 
 </body>
 </html>
