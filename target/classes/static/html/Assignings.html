@@ -54,6 +54,7 @@
   <div id="updateModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
+      <p>Update assigning with ID: <span id="modalBookingId"></span></p> 
       <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/driver'}" method="post">
         <input type="text" name="driverName" placeholder="Enter new driver name">
         <button type="submit">Update Driver</button>
