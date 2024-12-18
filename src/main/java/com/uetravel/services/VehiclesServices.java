@@ -19,10 +19,6 @@ public class VehiclesServices {
         return vehiclesRepo.findAll();
     }
 
-    public List<Vehicles> getVehiclesByType(String type) {
-        return vehiclesRepo.findByType(type);
-    }
-
     public Vehicles getVehicleByRegistrationNumber(String registrationNumber) {
         return vehiclesRepo.findByRegistrationNumber(registrationNumber);
     }

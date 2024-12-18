@@ -40,10 +40,6 @@ public class EmployeesServices {
         return employeesRepo.findBySalaryRange(minSalary, maxSalary);
     }
 
-    public List<Employees> getEmployeeByTourName(String tourName) {
-        return employeesRepo.findByTourName(tourName);
-    }
-
     public void deleteEmployee(Integer employeeId) {
         if (!employeesRepo.existsById(employeeId)) {
             throw new IllegalArgumentException("Employee not found with ID: " + employeeId);

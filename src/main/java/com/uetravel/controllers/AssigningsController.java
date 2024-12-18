@@ -178,19 +178,4 @@ public class AssigningsController {
         }
         return modelAndView;
     }
-
-    @PostMapping("/{assigningId}/tour")
-    public ModelAndView updateAssigningTour(
-            @PathVariable Integer assigningId,
-            @RequestParam("tourName") String tourName) {
-
-        ModelAndView modelAndView = new ModelAndView("assignings");
-        try {
-            Assignings updatedAssigning = assigningsServices.updateAssigningTour(assigningId, tourName);
-            modelAndView.addObject("assignings", List.of(updatedAssigning));
-        } catch (IllegalArgumentException e) {
-            modelAndView.addObject("error", "Assigning or Tour not found");
-        }
-        return modelAndView;
-    }
 }

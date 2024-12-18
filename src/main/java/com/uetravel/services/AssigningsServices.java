@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.uetravel.models.Assignings;
 import com.uetravel.models.Destinations;
 import com.uetravel.models.Employees;
-import com.uetravel.models.Tours;
 import com.uetravel.models.Vehicles;
 import com.uetravel.repositories.AssigningsRepo;
 
@@ -127,19 +126,6 @@ public class AssigningsServices {
         }
 
         assigning.setVehicle(vehicle);
-        return assigningsRepo.save(assigning);
-    }
-
-    public Assignings updateAssigningTour(Integer assigningId, String tourName) {
-        Assignings assigning = assigningsRepo.findById(assigningId)
-            .orElseThrow(() -> new IllegalArgumentException("Assigning not found with ID: " + assigningId));
-
-        Tours tour = toursServices.getTourByName(tourName)
-            .stream()
-            .findFirst() 
-            .orElseThrow(() -> new IllegalArgumentException("Tour not found with name: " + tourName));
-
-        assigning.setTour(tour);
         return assigningsRepo.save(assigning);
     }
 }

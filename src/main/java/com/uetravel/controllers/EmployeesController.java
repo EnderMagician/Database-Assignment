@@ -73,14 +73,6 @@ public class EmployeesController {
         return modelAndView;
     }
 
-    @GetMapping("/tourName/{tourName}")
-    public ModelAndView getEmployeeByTourName(@PathVariable String tourName) {
-        ModelAndView modelAndView = new ModelAndView("employees");
-        List<Employees> employees = employeesServices.getEmployeeByTourName(tourName);
-        modelAndView.addObject("employees", employees);
-        return modelAndView;
-    }
-
     @DeleteMapping("/{employeeId}")
     public ModelAndView deleteEmployee(@PathVariable Integer employeeId) {
         ModelAndView modelAndView = new ModelAndView("employees");

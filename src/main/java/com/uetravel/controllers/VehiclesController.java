@@ -29,14 +29,6 @@ public class VehiclesController {
         return modelAndView;
     }
 
-    @GetMapping("/type/{type}")
-    public ModelAndView getVehiclesByType(@PathVariable String type) {
-        ModelAndView modelAndView = new ModelAndView("vehicles");
-        List<Vehicles> vehicles = vehiclesServices.getVehiclesByType(type);
-        modelAndView.addObject("vehicles", vehicles);
-        return modelAndView;
-    }
-
     @GetMapping("/registrationNumber/{registrationNumber}")
     public ModelAndView getVehicleByRegistrationNumber(@PathVariable String registrationNumber) {
         ModelAndView modelAndView = new ModelAndView("vehicles");
