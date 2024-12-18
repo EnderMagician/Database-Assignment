@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,7 +75,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/driver")
+    @PostMapping("/{assigningId}/driver")
     public ModelAndView updateAssigningDriver(
             @PathVariable Integer assigningId,
             @RequestParam("driverName") String driverName) {
@@ -89,7 +90,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/tourGuide")
+    @PostMapping("/{assigningId}/tourGuide")
     public ModelAndView updateAssigningTourGuide(
             @PathVariable Integer assigningId,
             @RequestParam("tourGuideName") String tourGuideName) {
@@ -104,7 +105,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/startTime")
+    @PostMapping("/{assigningId}/startTime")
     public ModelAndView updateAssigningStartTime(
             @PathVariable Integer assigningId,
             @RequestParam("startTime") Timestamp startTime) {
@@ -119,7 +120,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/endTime")
+    @PostMapping("/{assigningId}/endTime")
     public ModelAndView updateAssigningEndTime(
             @PathVariable Integer assigningId,
             @RequestParam("endTime") Timestamp endTime) {
@@ -134,7 +135,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/startDestination")
+    @PostMapping("/{assigningId}/startDestination")
     public ModelAndView updateAssigningStartDestination(
             @PathVariable Integer assigningId,
             @RequestParam("startDestinationName") String startDestinationName) {
@@ -149,7 +150,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/endDestination")
+    @PostMapping("/{assigningId}/endDestination")
     public ModelAndView updateAssigningEndDestination(
             @PathVariable Integer assigningId,
             @RequestParam("endDestinationName") String endDestinationName) {
@@ -164,7 +165,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/vehicle")
+    @PostMapping("/{assigningId}/vehicle")
     public ModelAndView updateAssigningVehicle(
             @PathVariable Integer assigningId,
             @RequestParam("registrationNumber") String registrationNumber) {
@@ -179,7 +180,7 @@ public class AssigningsController {
         return modelAndView;
     }
 
-    @PatchMapping("/{assigningId}/tour")
+    @PostMapping("/{assigningId}/tour")
     public ModelAndView updateAssigningTour(
             @PathVariable Integer assigningId,
             @RequestParam("tourName") String tourName) {
