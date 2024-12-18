@@ -27,8 +27,8 @@ public interface EmployeesRepo extends JpaRepository<Employees, Integer> {
     List<Employees> findBySalaryRange(@Param("minSalary") BigDecimal minSalary, @Param("maxSalary") BigDecimal maxSalary);
 
     @Query("SELECT e FROM Employees e " +
-           "JOIN e.assignings a " + 
-           "JOIN a.tour t " +
+           "JOIN e.assigningsAsDriver a " +  
+           "JOIN a.tour t " +               
            "WHERE t.tourName = :tourName")
     List<Employees> findByTourName(@Param("tourName") String tourName);
 }
