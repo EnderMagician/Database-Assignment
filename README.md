@@ -37,6 +37,7 @@ This repository contains the source code for a website that allows users to brow
     * Import the database schema (you can find the directory in this readme file).
 4. **Start the application:**
     * Run UETravel.java.
+    * Open your browser and connect to http://localhost:8080/
 
 ## License
 
