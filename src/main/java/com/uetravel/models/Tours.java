@@ -30,10 +30,10 @@ public class Tours {
     @Column(name = "Description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "StartDate", nullable = false)
+    @Column(name = "start_date", nullable = false)
     private Date startDate;
 
-    @Column(name = "EndDate", nullable = false)
+    @Column(name = "end_date", nullable = false)
     private Date endDate;
 
     @Column(name = "BookingDeadline", nullable = false)
