@@ -11,6 +11,9 @@ import com.uetravel.models.Customers;
 
 @Repository
 public interface CustomerRepo extends JpaRepository<Customers, Integer> {
+    @Query("SELECT c FROM Customers c")
+    List<Customers> findAll();
+
     @Query("SELECT c FROM Customers c WHERE c.customerName LIKE %:name%")
     List<Customers> findByName(@Param("name") String name);
 

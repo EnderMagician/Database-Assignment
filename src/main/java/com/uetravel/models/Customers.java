@@ -48,4 +48,16 @@ public class Customers {
 
     @Column(name = "Address", nullable = false, length = 255)
     private String address;
+    @Override
+    public String toString() {
+        return "Customers{" +
+                "customerId=" + customerId +
+                ", customerName='" + customerName + '\'' +
+                ", birthday=" + birthday +
+                ", gender=" + gender +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

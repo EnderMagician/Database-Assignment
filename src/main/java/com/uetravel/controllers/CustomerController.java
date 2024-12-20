@@ -3,6 +3,7 @@ package com.uetravel.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.uetravel.models.Customers;
 import com.uetravel.services.CustomerServices;
 
-@RestController
+@Controller
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
@@ -21,9 +22,10 @@ public class CustomerController {
 
     @GetMapping
     public ModelAndView getAllCustomers() {
-        ModelAndView modelAndView = new ModelAndView("customers"); // View name: "customers"
+        ModelAndView modelAndView = new ModelAndView("customers"); // View name: "customers.html"
         List<Customers> customers = customerServices.getAllCustomers();
-        modelAndView.addObject("customers", customers); // Attribute name: "customers"
+        System.out.println(customers.size());
+        modelAndView.addObject("customers", customers);
         return modelAndView;
     }
 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Customers</title>
-  <link rel="stylesheet" href="../css/hidingwindow.css"> 
+  <link rel="stylesheet" href="/css/hidingwindow.css">
 </head>
 <body>
 
@@ -15,30 +15,28 @@
 <div th:if="${not #lists.isEmpty(customers)}">
   <table>
     <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Birthday</th>
-        <th>Gender</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Address</th>
-        <th>Actions</th> 
-      </tr>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Birthday</th>
+      <th>Gender</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-      <tr th:each="customer : ${customers}">
-        <td th:text="${customer.customerId}"></td>
-        <td th:text="${customer.customerName}"></td>
-        <td th:text="${customer.birthday}"></td>
-        <td th:text="${customer.gender}"></td>
-        <td th:text="${customer.email}"></td>
-        <td th:text="${customer.phoneNumber}"></td>
-        <td th:text="${customer.address}"></td>
-        <td>
-          <button type="button" class="openModalBtn" th:attr="data-customer-id=${customer.customerId}">Update</button> 
-        </td>
-      </tr>
+    <tr th:each="customer : ${customers}" th:if="${customer != null}">
+      <td th:text="${customer.customerId}"></td>
+      <td th:text="${customer.customerName}"></td>
+      <td th:text="${customer.birthday}"></td>
+      <td th:text="${customer.gender}"></td>
+      <td th:text="${customer.email}"></td>
+      <td th:text="${customer.phoneNumber}"></td>
+      <td th:text="${customer.address}"></td>
+      <td><button type="button" class="openModalBtn" th:attr="data-customer-id=${customer.customerId}">Update</button></td>
+    </tr>
     </tbody>
   </table>
 </div>
@@ -50,7 +48,7 @@
 <div id="updateModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Update Customer with ID: <span id="modalCustomerId"></span></p> 
+    <p>Update Customer with ID: <span id="modalCustomerId"></span></p>
     <form id="updateCustomerForm" method="post">
       <input type="hidden" name="customerId" id="customerIdInput">
 
@@ -82,13 +80,13 @@
     <form id="deleteCustomerForm" method="post" th:action="@{'/customers/' + ${customer.customerId}}">
       <button type="submit">Delete Customer</button>
     </form>
-    <div id="modalFormContainer"></div> 
+    <div id="modalFormContainer"></div>
 
   </div>
 </div>
 
-<script src="../javascript/RoleChecking.js"></script>
-<script src="../javascript/modal.js"></script> 
+<script src="/javascript/RoleChecking.js"></script>
+<script src="/javascript/modal.js"></script>
 
 </body>
 </html>
