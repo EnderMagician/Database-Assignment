@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.uetravel.models.Vehicles;
 import com.uetravel.services.VehiclesServices;
 
-@RestController
+@Controller
 @RequestMapping("/vehicles")
 public class VehiclesController {
 

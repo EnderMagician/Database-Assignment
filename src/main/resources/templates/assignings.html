@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Assignings</title>
+  <link rel="stylesheet" href="/css/hidingwindow.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap-theme.css" media="screen">
+  <style>
+    body {
+      margin-top: 180px; /* Ensure content starts below navbar */
+    }
+    .table-container {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" id="main-navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="AdminHome.html">
+        UETravel
+        <img src="/assets/Website_icon.ico" alt="UETravel">
+      </a>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="AdminHome.html">Home</a></li>
+        <li><a href="Tours.html">Tours</a></li>
+        <li><a href="http://localhost:8080/customers">Customers</a></li>
+        <li><a href="Destinations.html">Destinations</a></li>
+        <li><a href="Hotels.html">Hotels</a></li>
+        <li><a href="Bookings.html">Bookings</a></li>
+        <li><a href="http://localhost:8080/assignings">Assignings</a></li>
+        <li><a href="Payments.html">Payments</a></li>
+        <li><a href="Employees.html">Employees</a></li>
+        <li><a href="Vehicles.html">Vehicles</a></li>
+        <li><a href="http://localhost:8080">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+  <div th:if="${message}">
+    <p th:text="${message}"></p>
+  </div>
+
+  <div th:if="${not #lists.isEmpty(assignings)}">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Driver</th>
+        <th>Tour Guide</th>
+        <th>Vehicle</th>
+        <th>Tour</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Start Destination</th>
+        <th>End Destination</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="assigning : ${assignings}">
+        <td th:text="${assigning.assigningId}"></td>
+        <td th:text="${assigning.driver.employeeName}"></td>
+        <td th:text="${assigning.tourGuide.employeeName}"></td>
+        <td th:text="${assigning.vehicle.registrationNumber}"></td>
+        <td th:text="${assigning.tour.tourName}"></td>
+        <td th:text="${assigning.startTime}"></td>
+        <td th:text="${assigning.endTime}"></td>
+        <td th:text="${assigning.startDestination.destinationName}"></td>
+        <td th:text="${assigning.endDestination.destinationName}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-assigning-id=${assigning.assigningId}"
+                  data-driver-name="${assigning.driver.employeeName}"
+                  data-tour-guide-name="${assigning.tourGuide.employeeName}"
+                  data-vehicle-registration="${assigning.vehicle.registrationNumber}"
+                  data-tour-name="${assigning.tour.tourName}"
+                  data-start-time="${#temporals.format(assigning.startTime, 'yyyy-MM-ddThh:mm')}"
+                  data-end-time="${#temporals.format(assigning.endTime, 'yyyy-MM-ddThh:mm')}"
+                  data-start-destination="${assigning.startDestination.destinationName}"
+                  data-end-destination="${assigning.endDestination.destinationName}">Update</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:if="${error}">
+    <p th:text="${error}"></p>
+  </div>
+</div>
+
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update Assigning with ID: <span id="modalAssigningId"></span></p>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/driver'}" method="post">
+      <input type="text" name="driverName" placeholder="Enter new driver name">
+      <button type="submit">Update Driver</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/tourGuide'}" method="post">
+      <input type="text" name="tourGuideName" placeholder="Enter new tour guide name">
+      <button type="submit">Update Tour Guide</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/startTime'}" method="post">
+      <input type="datetime-local" name="startTime" th:value="${#temporals.format(assigning.startTime, 'yyyy-MM-ddThh:mm')}">
+      <button type="submit">Update Start Time</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/endTime'}" method="post">
+      <input type="datetime-local" name="endTime" th:value="${#temporals.format(assigning.endTime, 'yyyy-MM-ddThh:mm')}">
+      <button type="submit">Update End Time</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/startDestination'}" method="post">
+      <input type="text" name="startDestinationName" placeholder="Enter new start destination">
+      <button type="submit">Update Start Destination</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/endDestination'}" method="post">
+      <input type="text" name="endDestinationName" placeholder="Enter new end destination">
+      <button type="submit">Update End Destination</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/vehicle'}" method="post">
+      <input type="text" name="registrationNumber" placeholder="Enter new vehicle registration number">
+      <button type="submit">Update Vehicle</button>
+    </form>
+    <form th:action="@{'/assignings/' + ${assigning.assigningId} + '/tour'}" method="post">
+      <input type="text" name="tourName" placeholder="Enter new tour name">
+      <button type="submit">Update Tour</button>
+    </form>
+    <div id="modalFormContainer"></div>
+  </div>
+</div>
+
+<script src="/javascript/RoleChecking.js"></script>
+<script src="/javascript/modal.js"></script>
+
+</body>
+</html>

@@ -24,7 +24,6 @@ public class CustomerController {
     public ModelAndView getAllCustomers() {
         ModelAndView modelAndView = new ModelAndView("customers"); // View name: "customers.html"
         List<Customers> customers = customerServices.getAllCustomers();
-        System.out.println(customers.size());
         modelAndView.addObject("customers", customers);
         return modelAndView;
     }
