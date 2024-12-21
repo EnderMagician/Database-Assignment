@@ -3,7 +3,7 @@
 ## Tours
 - Stores all tours, including those that have ended.
 <details>
-  <summary>Expand to view Tour attributes</summary>
+  <summary><u>Expand to view Tour attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -22,7 +22,7 @@
 ## Customers
 - Stores customers data, with CustomerID used as username to login to the website.
 <details>
-  <summary>Expand to view Customer attributes</summary>
+  <summary><u>Expand to view Customer attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -39,7 +39,7 @@
 ## Employees
 - Stores current employees data. As it serves the website purpose, the only positions available are Driver and TourGuide.
 <details>
-  <summary>Expand to view Employee attributes</summary>
+  <summary><u>Expand to view Employee attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -57,7 +57,7 @@
 ## Payments
 - Stores all customers transactions data.
 <details>
-  <summary>Expand to view Payment attributes</summary>
+  <summary><u>Expand to view Payment attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -71,7 +71,7 @@
 ## Destinations
 - Stores all destinations data.
 <details>
-  <summary>Expand to view Destination attributes</summary>
+  <summary><u>Expand to view Destination attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -85,7 +85,7 @@
 ## Vehicle Types
 - Stores all vehicle types.
 <details>
-  <summary>Expand to view Vehicle Type attributes</summary>
+  <summary><u>Expand to view Vehicle Type attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -98,7 +98,7 @@
 ## Vehicles
 - Stores current vehicles that the company owns.
 <details>
-  <summary>Expand to view Vehicle attributes</summary>
+  <summary><u>Expand to view Vehicle attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -110,7 +110,7 @@
 ## Hotels
 - Stores hotels data.
 <details>
-  <summary>Expand to view Hotel attributes</summary>
+  <summary><u>Expand to view Hotel attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -126,7 +126,7 @@
 ## Bookings
 - Stores all bookings data, including those that have been cancelled.
 <details>
-  <summary>Expand to view Booking attributes</summary>
+  <summary><u>Expand to view Booking attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -143,7 +143,7 @@
 ## Assignings
 - Stores employees assigned jobs. As each employee can participate in multiple tours in a day, startTime and endTime specify their job more thoroughly.
 <details>
-  <summary>Expand to view Assigning attributes</summary>
+  <summary><u>Expand to view Assigning attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
@@ -161,7 +161,7 @@
 ## Tour Destinations
 - Stores tours destinations, as this is a Many-to-Many relation.
 <details>
-  <summary>Expand to view Tour Destination attributes</summary>
+  <summary><u>Expand to view Tour Destination attributes</u></summary>
 
 | Attribute | Data Type | Description |
 |---|---|---|
