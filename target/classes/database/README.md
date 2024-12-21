@@ -91,7 +91,7 @@
 |---|---|---|
 | Type | VARCHAR(50) NOT NULL PRIMARY KEY | Type of the vehicle (e.g., Bus, Car) |
 | Seats | INT NOT NULL | Number of seats in the vehicle |
-| Lifespan | INT NOT NULL |  Expected lifespan of the vehicle type (in years) |
+| Lifespan | INT NOT NULL | Legal lifespan of the vehicle type (in years) |
 | CostPer100km | DECIMAL(10, 2) NOT NULL | Cost of operating the vehicle per 100km |
 </details>
 
