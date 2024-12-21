@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Assignings</title>
+  <link rel="stylesheet" href="../css/hidingwindow.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/assets/Website_icon.ico">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap-theme.css" media="screen">
+  <style>
+    body {
+      margin-top: 180px; /* Ensure content starts below navbar */
+    }
+    .table-container {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" id="main-navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="AdminHome.html">
+        UETravel
+        <img src="/assets/Website_icon.ico" alt="UETravel">
+      </a>
+      <ul class="nav navbar-nav pull-right">
+        <li class="active"><a href="AdminHome.html">Home</a></li>
+        <li><a href="Tours.html">Tours</a></li>
+        <li><a href="http://localhost:8080/customers">Customers</a></li>
+        <li><a href="Destinations.html">Destinations</a></li>
+        <li><a href="Hotels.html">Hotels</a></li>
+        <li><a href="Bookings.html">Bookings</a></li>
+        <li><a href="http://localhost:8080/assignings">Assignings</a></li>
+        <li><a href="Payments.html">Payments</a></li>
+        <li><a href="Employees.html">Employees</a></li>
+        <li><a href="Vehicles.html">Vehicles</a></li>
+        <li><a href="http://localhost:8080">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+  <div th:if="${message}">
+    <p th:text="${message}"></p>
+  </div>
+
+  <div th:if="${not #lists.isEmpty(assignings)}">
+    <table>
+      <thead>
+      <tr>
+        <th>Assigning ID</th>
+        <th>Driver</th>
+        <th>Tour Guide</th>
+        <th>Vehicle</th>
+        <th>Tour</th>
+        <th>Start Destination</th>
+        <th>End Destination</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="assigning : ${assignings}">
+        <td th:text="${assigning.assigningId}"></td>
+        <td th:text="${assigning.driver != null ? assigning.driver.employeeName : 'No Driver'}"></td>
+        <td th:text="${assigning.tourGuide != null ? assigning.tourGuide.employeeName : 'No Tour Guide'}"></td>
+        <td th:text="${assigning.vehicle != null ? assigning.vehicle.registrationNumber : 'No Vehicle'}"></td>
+        <td th:text="${assigning.tour != null ? assigning.tour.tourName : 'No Tour'}"></td>
+        <td th:text="${assigning.startDestination != null ? assigning.startDestination.destinationName : 'No Start Destination'}"></td>
+        <td th:text="${assigning.endDestination != null ? assigning.endDestination.destinationName : 'No End Destination'}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:if="${error}">
+    <p th:text="${error}"></p>
+  </div>
+</div>
+
+<script src="/javascript/RoleChecking.js"></script>
+<script src="/javascript/modal.js"></script>
+
+</body>
+</html>

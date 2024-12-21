@@ -4,7 +4,7 @@ This repository contains the source code for a website that allows users to brow
 
 ## Database
 
-[Database](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/database/Database.sql)
+[Database](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/database/Database.sql) <br>
 [Table Definitions](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/database/README.md)
 ![Database](https://github.com/EnderMagician/Database-Assignment/blob/main/src/main/resources/database/Database.png)
 

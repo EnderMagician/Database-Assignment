@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Customers</title>
+  <link rel="stylesheet" href="../css/hidingwindow.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/assets/Website_icon.ico">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap-theme.css" media="screen">
+  <style>
+    body {
+      margin-top: 180px; /* Ensure content starts below navbar */
+    }
+    .table-container {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" id="main-navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="AdminHome.html">
+        UETravel
+        <img src="/assets/Website_icon.ico" alt="UETravel">
+      </a>
+      <ul class="nav navbar-nav pull-right">
+        <li class="active"><a href="AdminHome.html">Home</a></li>
+        <li><a href="Tours.html">Tours</a></li>
+        <li><a href="http://localhost:8080/customers">Customers</a></li>
+        <li><a href="Destinations.html">Destinations</a></li>
+        <li><a href="Hotels.html">Hotels</a></li>
+        <li><a href="Bookings.html">Bookings</a></li>
+        <li><a href="http://localhost:8080/assignings">Assignings</a></li>
+        <li><a href="Payments.html">Payments</a></li>
+        <li><a href="Employees.html">Employees</a></li>
+        <li><a href="Vehicles.html">Vehicles</a></li>
+        <li><a href="http://localhost:8080">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+  <div th:if="${message}">
+    <p th:text="${message}"></p>
+  </div>
+
+  <div th:if="${not #lists.isEmpty(customers)}">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="customer : ${customers}">
+        <td th:text="${customer.customerId}"></td>
+        <td th:text="${customer.customerName}"></td>
+        <td th:text="${customer.birthday}"></td>
+        <td th:text="${customer.gender}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+        <td th:text="${customer.address}"></td>
+        <td>
+          <button type="button" class="openModalBtn" th:attr="data-customer-id=${customer.customerId}" data-customer-name="${customer.customerName}" data-customer-birthday="${customer.birthday}" data-customer-gender="${customer.gender}" data-customer-email="${customer.email}" data-customer-phone="${customer.phoneNumber}" data-customer-address="${customer.address}">Update</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:if="${error}">
+    <p th:text="${error}"></p>
+  </div>
+</div>
+
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Update Customer with ID: <span id="modalCustomerId"></span></p>
+    <form id="updateCustomerForm" method="post">
+      <input type="hidden" name="customerId" id="customerIdInput">
+
+      <label for="customerName">Name:</label>
+      <input type="text" name="customerName" id="customerNameInput" placeholder="Enter new name">
+
+      <label for="birthday">Birthday:</label>
+      <input type="date" name="birthday" id="birthdayInput">
+
+      <label for="gender">Gender:</label>
+      <select name="gender" id="genderSelect">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="emailInput" placeholder="Enter new email">
+
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="tel" name="phoneNumber" id="phoneNumberInput" placeholder="Enter new phone number">
+
+      <label for="address">Address:</label>
+      <input type="text" name="address" id="addressInput" placeholder="Enter new address">
+
+      <button type="submit">Update Customer</button>
+    </form>
+
+    <form id="deleteCustomerForm" method="post" th:action="@{'/customers/' + ${customer.customerId}}">
+      <button type="submit">Delete Customer</button>
+    </form>
+    <div id="modalFormContainer"></div>
+
+  </div>
+</div>
+
+<script src="/javascript/RoleChecking.js"></script>
+<script src="/javascript/modal.js"></script>
+
+</body>
+</html>
