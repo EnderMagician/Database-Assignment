@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Assignings")
+@Table(name = "assignings")
 @Getter
 @Setter
 public class Assignings {
@@ -40,17 +40,17 @@ public class Assignings {
     @JoinColumn(name = "Vehicle", nullable = false)
     private Vehicles vehicle;
 
-    @Column(name = "StartTime", nullable = false)
+    @Column(name = "start_time", nullable = false)
     private Timestamp startTime;
 
-    @Column(name = "EndTime", nullable = false)
+    @Column(name = "end_time", nullable = false)
     private Timestamp endTime;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "StartDestination", nullable = false)
+    @JoinColumn(name = "start_destination", nullable = false)
     private Destinations startDestination;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "EndDestination", nullable = false)
+    @JoinColumn(name = "end_destination", nullable = false)
     private Destinations endDestination;
 }

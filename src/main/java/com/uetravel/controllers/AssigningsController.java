@@ -26,6 +26,7 @@ public class AssigningsController {
     public ModelAndView getAllAssignings() {
         ModelAndView modelAndView = new ModelAndView("assignings");
         List<Assignings> assignings = assigningsServices.getAllAssignings();
+        System.out.println(assignings);
         modelAndView.addObject("assignings", assignings);
         return modelAndView;
     }

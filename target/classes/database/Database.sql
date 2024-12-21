@@ -356,7 +356,7 @@ INSERT INTO Bookings (CustomerID, BookingDate, TourID, AssignedHotel, AssignedVe
 (1, '2024-12-22 09:30:00', 9, 9, 'MNO369258', '606 Suburbia St, Oakville', 'Canceled'),
 (1, '2024-12-24 14:45:00', 10, 10, 'PQR159753', '707 Skyline Dr, Skyline City', 'Paid');
 
--- 15 random bookings for other customers
+-- 15 random bookings for other customers.html
 INSERT INTO Bookings (CustomerID, BookingDate, TourID, AssignedHotel, AssignedVehicle, PickupAddress, Status) VALUES
 (2, '2024-12-10 09:00:00', 2, 2, 'XYZ987654', '456 Beach Rd, Seaside', 'Paid'),
 (3, '2024-12-12 14:30:00', 3, 3, 'LMN456789', '789 Summit Ave, Highlands', 'NotPaid'),

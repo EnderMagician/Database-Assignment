@@ -13,18 +13,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Vehicles")
+@Table(name = "vehicles")
 @Getter
 @Setter
 public class Vehicles {
     @Id
-    @Column(name = "RegistrationNumber", nullable = false, length = 9)
+    @Column(name = "registration_number", nullable = false, length = 9)
     private String registrationNumber;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // Adjust cascade types as needed
     @JoinColumn(name = "Type")
     private VehicleTypes type; 
 
-    @Column(name = "PurchasedDate", nullable = false)
+    @Column(name = "purchased_date", nullable = false)
     private Date purchasedDate;
 }
