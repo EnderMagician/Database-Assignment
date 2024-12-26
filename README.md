@@ -43,3 +43,9 @@ This repository contains the source code for a website that allows users to brow
 ## License
 
 Template is taken from [GitHub](https://github.com/learning-zone/website-templates/tree/master/vteam-a-corporate-multipurpose-free-bootstrap-responsive-template).
+
+## Contribution
+
+* **EnderMagigician:** Nguyễn Minh Hiếu
+* **Rice204H:** Lưu Văn Hùng
+* **K68UET-NguyenVanVuong:** Nguyễn Văn Vượng
